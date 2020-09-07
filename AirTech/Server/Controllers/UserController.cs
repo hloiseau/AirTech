@@ -10,19 +10,19 @@ namespace AirTech.Server
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly ILogger<UserController> logger;
+        private readonly ILogger _logger;
         private readonly UserDAO _dao;
 
-        public UserController(ILogger<UserController> logger)
+        public UserController(UserDAO context, ILogger<UserController> logger)
         {
-            this.logger = logger;
-            this._dao = new UserDAO();
+            this._logger = logger;
+            this._dao = context;
         }
 
         [HttpGet]
         public IEnumerable<User> Get()
         {
-            return _dao.GetUserq();
+            return _dao.GetUsers();
         }
 
         [HttpPost]

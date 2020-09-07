@@ -20,7 +20,7 @@ namespace AirTech.Server.Service
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(_configuration.GetConnectionString("MonitoringSmartBuilding"));
+                optionsBuilder.UseSqlServer(_configuration.GetConnectionString("Sql_coString"));
             }
         }
 
@@ -48,6 +48,21 @@ namespace AirTech.Server.Service
                 entity.Property(e => e.Price)
                     .IsRequired()
                     .HasColumnName("Price")
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.Property(e => e.ID).HasColumnName("id");
+
+                entity.Property(e => e.LastName)
+                    .IsRequired()
+                    .HasColumnName("LastName")
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FirstName)
+                    .IsRequired()
+                    .HasColumnName("FirstName")
                     .IsUnicode(false);
             });
         }

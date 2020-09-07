@@ -1,3 +1,4 @@
+using AirTech.Server.Controllers;
 using AirTech.Server.DAO;
 using AirTech.Server.Service;
 using Microsoft.AspNetCore.Builder;
@@ -25,13 +26,16 @@ namespace AirTech.Server
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddDbContext<DatabaseService>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DB-ConString")));
+                options.UseSqlServer(Configuration.GetConnectionString("Sql_coString")));
 
         }
 
         protected virtual void ConfigureAdditionalServices(IServiceCollection services)
         {
+            services.AddTransient<TravelController>();
             services.AddTransient<TravelDAO>();
+            services.AddTransient<UserController>();
+            services.AddTransient<UserDAO>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

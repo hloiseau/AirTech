@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using AirTech.Server.Service;
 using AirTech.Shared;
-using AirTech.Server.Interface;
+using Microsoft.Extensions.Logging;
 
 namespace AirTech.Server.DAO
 {
-    internal class UserDAO
+    public class UserDAO
     {
-        IDatabaseService _databaseService;
-        
-        public UserDAO(IDatabaseService databaseService)
+        private object _databaseService;
+
+        public UserDAO(DatabaseService context, ILogger<UserDAO> logger)
         {
-            this._databaseService = databaseService;
+            this._databaseService = context;
         }
 
         public List<User> GetUsers()
