@@ -24,5 +24,11 @@ namespace AirTech.Server.Controllers
         {
             return _dao.GetTravels();
         }
+
+        [HttpGet("{id}", Name = "GetTravelById")]
+        public Travel Get(int id)
+        {
+            return _dao.GetTravelsById(id);
+        }
     }
 }

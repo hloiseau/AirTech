@@ -1,9 +1,7 @@
 ﻿using AirTech.Server.Service;
 using AirTech.Shared;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AirTech.Server.DAO
 {
@@ -18,9 +16,19 @@ namespace AirTech.Server.DAO
             this._logger = logger;
         }
 
-        public List<Travel> GetTravels()
+        public IEnumerable<Travel> GetTravels()
         {
-            throw new NotImplementedException();
+            return _databaseService.Travels;
+        }
+        
+        public Travel GetTravelsById(int id)
+        {
+            foreach (Travel t in _databaseService.Travels)
+            {
+                if (t.ID == id)
+                    return t;
+            }
+            return null;
         }
     }
 }

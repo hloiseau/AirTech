@@ -32,9 +32,7 @@ namespace AirTech.Server
 
         protected virtual void ConfigureAdditionalServices(IServiceCollection services)
         {
-            services.AddTransient<TravelController>();
             services.AddTransient<TravelDAO>();
-            services.AddTransient<UserController>();
             services.AddTransient<UserDAO>();
         }
 

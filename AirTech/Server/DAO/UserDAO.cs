@@ -8,16 +8,16 @@ namespace AirTech.Server.DAO
 {
     public class UserDAO
     {
-        private object _databaseService;
+        private DatabaseService _databaseService;
 
         public UserDAO(DatabaseService context, ILogger<UserDAO> logger)
         {
             this._databaseService = context;
         }
 
-        public List<User> GetUsers()
+        public IEnumerable<User> GetUsers()
         {
-            throw new NotImplementedException();
+            return _databaseService.Users;
         }
 
         public User CreateUser()

@@ -14,7 +14,8 @@ namespace AirTech.Server.Service
             _configuration = configuration;
         }
 
-        public virtual DbSet<Travel> Travel { get; set; }
+        public virtual DbSet<Travel> Travels { get; set; }
+        public virtual DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
