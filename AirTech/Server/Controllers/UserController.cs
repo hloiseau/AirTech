@@ -22,7 +22,7 @@ namespace AirTech.Server
         [HttpGet]
         public IEnumerable<User> Get()
         {
-            return _dao.GetUserq();
+            return _dao.GetUsers();
         }
 
         [HttpPost]

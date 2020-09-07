@@ -1,0 +1,18 @@
+﻿@inject HttpClient Http
+
+<ul class="list-group">
+    @foreach (var travel in Travels)
+    {
+        <a href="/billet/@travel.Id" class="list-group-item">
+            @travel.From - @travel.To : @travel.Price €
+            Count : @travel.Count, Date : @travel.Date.ToShortDateString()
+        </a>
+    }
+</ul>
+
+@code {
+    // Demonstrates how a parent component can supply parameters
+    [Parameter]
+    public List<AirTech.Shared.Travel> Travels { get; set; }
+
+}

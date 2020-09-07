@@ -1,0 +1,20 @@
+﻿@using AirTech.Shared
+@using AirTech.Client.Shared
+@page "/billet-list"
+
+<h1>List of Billet</h1>
+
+@foreach (var billet in Billets)
+{
+    <span>@billet.User.Firstname @billet.User.Lastname</span>
+   <span class="list-group-item">
+        @billet.Travel.From - @billet.Travel.To : @billet.Travel.Price €
+        <br />
+        Date : @billet.Travel.Date.ToShortDateString()
+   </span>
+}
+
+@code {
+[Parameter]
+public List<AirTech.Shared.Billet> Billets { get; set; }
+}

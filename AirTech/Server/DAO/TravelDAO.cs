@@ -9,6 +9,10 @@ namespace AirTech.Server.DAO
     {
         IDatabaseService _databaseService;
 
+        public TravelDAO()
+        {
+        }
+
         public TravelDAO(IDatabaseService databaseService)
         {
             this._databaseService = databaseService;

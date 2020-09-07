@@ -1,0 +1,35 @@
+﻿@inject HttpClient Http
+
+@page "/billet/{TravelId}"
+<h3>Billet</h3>
+
+@Travel.From - @Travel.To
+
+<input type="text" @bind="User.Firstname" placeholder="First Name"/>
+<input type="text" @bind="User.Lastname" placeholder="Last Name"/>
+
+<button @onclick="SubmitBillet">
+    Submit
+</button>
+
+
+@code {
+
+    [Parameter]
+    public int TravelId { get; set; }
+
+    public AirTech.Shared.Travel Travel { get; set; }
+
+    public AirTech.Shared.User User { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Travel = await Http.GetFromJsonAsync<AirTech.Shared.Travel>($"Travel/{TravelId}");
+    }
+
+    public async Task SubmitBillet()
+    {
+        await Http.PostAsJsonAsync<Billet>("Billet", new Billet() { Travel = Travel, User = User });
+    }
+}
+}

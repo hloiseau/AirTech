@@ -14,6 +14,10 @@ namespace AirTech.Server.DAO
             this._databaseService = databaseService;
         }
 
+        public UserDAO()
+        {
+        }
+
         public List<User> GetUsers()
         {
             throw new NotImplementedException();
