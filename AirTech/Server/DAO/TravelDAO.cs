@@ -1,26 +1,33 @@
-﻿using AirTech.Server.Interface;
+﻿using AirTech.Server.Service;
 using AirTech.Shared;
-using System;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AirTech.Server.DAO
 {
-    internal class TravelDAO
+    public class TravelDAO
     {
-        IDatabaseService _databaseService;
+        DatabaseService _databaseService;
+        ILogger _logger;
 
-        public TravelDAO()
+        public TravelDAO(DatabaseService context, ILogger<TravelDAO> logger)
         {
+            this._databaseService = context;
+            this._logger = logger;
         }
 
-        public TravelDAO(IDatabaseService databaseService)
+        public IEnumerable<Travel> GetTravels()
         {
-            this._databaseService = databaseService;
+            return _databaseService.Travels;
         }
 
-        public List<Travel> GetTravels()
+        public Travel GetTravelsById(int id)
         {
-            throw new NotImplementedException();
+            IQueryable<Travel> list = _databaseService.Travels.Where(t => t.ID == id);
+            Travel t = list.FirstOrDefault<Travel>();
+            return t;
+
         }
     }
 }
