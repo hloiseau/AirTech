@@ -8,15 +8,15 @@ namespace AirTech.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class TravelController : ControllerBase
+    public class TravelController : Controller
     {
-        private readonly ILogger<TravelController> logger;
+        private readonly ILogger _logger;
         private readonly TravelDAO _dao;
 
-        public TravelController(ILogger<TravelController> logger)
+        public TravelController(TravelDAO context, ILogger<TravelController> logger)
         {
-            this.logger = logger;
-            this._dao = new TravelDAO();
+            this._logger = logger;
+            this._dao = context;
         }
 
         [HttpGet]

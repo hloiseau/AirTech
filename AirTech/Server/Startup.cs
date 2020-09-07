@@ -1,5 +1,8 @@
+using AirTech.Server.DAO;
+using AirTech.Server.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -19,9 +22,16 @@ namespace AirTech.Server
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddDbContext<DatabaseService>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DB-ConString")));
+
+        }
+
+        protected virtual void ConfigureAdditionalServices(IServiceCollection services)
+        {
+            services.AddTransient<TravelDAO>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,17 +1,21 @@
-﻿using AirTech.Server.Interface;
+﻿using AirTech.Server.Service;
 using AirTech.Shared;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AirTech.Server.DAO
 {
-    internal class TravelDAO
+    public class TravelDAO
     {
-        IDatabaseService _databaseService;
+        DatabaseService _databaseService;
+        ILogger _logger;
 
-        public TravelDAO(IDatabaseService databaseService)
+        public TravelDAO(DatabaseService context, ILogger<TravelDAO> logger)
         {
-            this._databaseService = databaseService;
+            this._databaseService = context;
+            this._logger = logger;
         }
 
         public List<Travel> GetTravels()
