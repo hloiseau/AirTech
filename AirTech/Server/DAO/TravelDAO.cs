@@ -24,7 +24,7 @@ namespace AirTech.Server.DAO
 
         public Travel GetTravelsById(int id)
         {
-            IQueryable<Travel> list = _databaseService.Travels.Where(t => t.ID == id);
+            IQueryable<Travel> list = _databaseService.Travels.Where(t => t.Id == id);
             Travel t = list.FirstOrDefault<Travel>();
             return t;
 

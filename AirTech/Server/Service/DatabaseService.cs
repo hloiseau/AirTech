@@ -29,7 +29,7 @@ namespace AirTech.Server.Service
         {
             modelBuilder.Entity<Travel>(entity =>
             {
-                entity.Property(e => e.ID).HasColumnName("id");
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.From)
                     .IsRequired()
