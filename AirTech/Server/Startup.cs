@@ -27,13 +27,14 @@ namespace AirTech.Server
             services.AddRazorPages();
             services.AddDbContext<DatabaseService>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Sql_coString")));
-
+            ConfigureAdditionalServices(services);
         }
 
         protected virtual void ConfigureAdditionalServices(IServiceCollection services)
         {
             services.AddTransient<TravelDAO>();
             services.AddTransient<UserDAO>();
+            services.AddTransient<AirportDAO>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
