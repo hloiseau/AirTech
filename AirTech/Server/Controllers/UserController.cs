@@ -8,7 +8,7 @@ namespace AirTech.Server
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserController : ControllerBase
+    public class UserController : Controller
     {
         private readonly ILogger _logger;
         private readonly UserDAO _dao;

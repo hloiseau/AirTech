@@ -2,6 +2,7 @@
 using AirTech.Shared;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AirTech.Server.DAO
 {
@@ -20,15 +21,13 @@ namespace AirTech.Server.DAO
         {
             return _databaseService.Travels;
         }
-        
+
         public Travel GetTravelsById(int id)
         {
-            foreach (Travel t in _databaseService.Travels)
-            {
-                if (t.ID == id)
-                    return t;
-            }
-            return null;
+            IQueryable<Travel> list = _databaseService.Travels.Where(t => t.ID == id);
+            Travel t = list.FirstOrDefault<Travel>();
+            return t;
+
         }
     }
 }
