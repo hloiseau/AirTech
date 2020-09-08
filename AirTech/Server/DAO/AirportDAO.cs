@@ -15,9 +15,9 @@ namespace AirTech.Server.DAO
             this._databaseService = context;
         }
 
-        public IEnumerable<Airport> GetUsers()
+        public IEnumerable<Airport> GetAirports()
         {
-            return _databaseService.Airports;
+            return _databaseService.Airport;
         }
     }
 }

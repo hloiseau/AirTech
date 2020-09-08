@@ -17,7 +17,7 @@ namespace AirTech.Server.DAO
 
         public IEnumerable<User> GetUsers()
         {
-            return _databaseService.Users;
+            return _databaseService.User;
         }
 
         public User CreateUser()

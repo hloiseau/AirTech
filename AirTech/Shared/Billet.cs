@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 
-namespace AirTech.Shared
+namespace  AirTech.Shared
+
 {
-    public class Billet
+    public partial class Billet
     {
-        public int IDUser { get; set; }
-        public User User { get; set; }
-        public int IDTravel { get; set; }
-        public Travel Travel { get; set; }
+        public int IdUser { get; set; }
+        public int? IdBillet { get; set; }
+
+        public virtual Travel IdBilletNavigation { get; set; }
+        public virtual User IdUserNavigation { get; set; }
     }
 }

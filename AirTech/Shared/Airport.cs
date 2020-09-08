@@ -1,9 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 
-namespace AirTech.Shared
+namespace  AirTech.Shared
 {
-    public class Airport
+    public partial class Airport
     {
+        public Airport()
+        {
+            TravelFromNavigation = new HashSet<Travel>();
+            TravelToNavigation = new HashSet<Travel>();
+        }
+
         public string Nom { get; set; }
+
+        public virtual ICollection<Travel> TravelFromNavigation { get; set; }
+        public virtual ICollection<Travel> TravelToNavigation { get; set; }
     }
 }
