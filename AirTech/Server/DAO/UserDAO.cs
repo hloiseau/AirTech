@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using AirTech.Server.Service;
 using AirTech.Shared;
 using Microsoft.Extensions.Logging;
@@ -20,9 +21,12 @@ namespace AirTech.Server.DAO
             return _databaseService.User;
         }
 
-        public User CreateUser()
+        public async Task<User> CreateUser(User user)
         {
-            throw new NotImplementedException();
+            await _databaseService.User.AddAsync(user);
+            await _databaseService.SaveChangesAsync();
+
+            return user;
         }
     }
 }

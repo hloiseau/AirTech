@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using AirTech.Shared;
 using AirTech.Server.DAO;
+using System.Threading.Tasks;
 
 namespace AirTech.Server
 {
@@ -26,9 +27,9 @@ namespace AirTech.Server
         }
 
         [HttpPost]
-        public User Create()
+        public async Task<User> Create([FromBody]User user)
         {
-            return _dao.CreateUser();
+            return await _dao.CreateUser(user);
         }
     }
 }
