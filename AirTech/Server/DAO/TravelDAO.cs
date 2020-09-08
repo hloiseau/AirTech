@@ -21,30 +21,29 @@ namespace AirTech.Server.DAO
         public IEnumerable<TravelDispo> GetTravels()
         {
             List<TravelDispo> final = new List<TravelDispo>();
-            IEnumerable<Travel> a = _databaseService.Travel;
-            List<Travel> aa = a.ToList();
-            IEnumerable<BilletCount> b = _databaseService.BilletCount;
-            foreach (BilletCount bc in b)
+            List<Travel> travels = _databaseService.Travel.ToList();
+            List<BilletCount> billetCounts = _databaseService.BilletCount.ToList();
+
+            for (int j = 0; j < billetCounts.Count; j++)
             {
-                for (int i = 0; i < aa.Count; i++)
+                for (int i = 0; i < travels.Count; i++)
                 {
-                    if (bc.IdBillet == aa[i].Id)
+                    if (billetCounts[j].IdBillet == travels[i].Id)
                     {
                         final.Add(
                             new TravelDispo
                             {
-                                From = aa[i].From,
-                                To = aa[i].To,
-                                Price = aa[i].Price,
-                                Id = aa[i].Id,
-                                Date = aa[i].Date,
-                                Quantity = bc.Count,
+                                From = travels[i].From,
+                                To = travels[i].To,
+                                Price = travels[i].Price,
+                                Id = travels[i].Id,
+                                Date = travels[i].Date,
+                                Quantity = billetCounts[j].Count,
                             });
                     }
                 }
             }
             return final;
-
         }
 
         public Travel GetTravelsById(int id)
