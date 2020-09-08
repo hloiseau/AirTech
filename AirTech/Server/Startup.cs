@@ -26,8 +26,8 @@ namespace AirTech.Server
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddDbContext<DatabaseService>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("Sql_coString")));
-
+                options.UseSqlServer(Configuration["SqlCoString"]));
+            ConfigureAdditionalServices(services);
         }
 
         protected virtual void ConfigureAdditionalServices(IServiceCollection services)

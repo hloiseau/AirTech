@@ -10,10 +10,15 @@ Welcome to your new app.
 
 @code{
 
-    private List<AirTech.Shared.Travel> Travels { get; set; }
+    private List<AirTech.Shared.Travel> Travels { get; set; } = new List<AirTech.Shared.Travel>();
 
     protected override async Task OnInitializedAsync()
     {
         Travels = await Http.GetFromJsonAsync<List<AirTech.Shared.Travel>>("Travel");
+
+        if(Travels == null)
+        {
+            Travels = new List<AirTech.Shared.Travel>();
+        }
     }
 }

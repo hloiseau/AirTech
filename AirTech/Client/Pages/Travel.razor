@@ -16,11 +16,10 @@
 
 @code {
 
-    public AirTech.Shared.Travel MyTravel { get; set; }
+    public AirTech.Shared.Travel MyTravel { get; set; } = new AirTech.Shared.Travel();
 
     public async Task SubmitTravel()
     {
         await Http.PostAsJsonAsync<AirTech.Shared.Travel>("Travel", MyTravel);
     }
-}
 }
