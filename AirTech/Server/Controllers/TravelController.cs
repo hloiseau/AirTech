@@ -20,7 +20,7 @@ namespace AirTech.Server.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<TravelDispo> Get()
+        public IEnumerable<Travel> Get()
         {
             return _dao.GetTravels();
         }

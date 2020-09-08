@@ -12,22 +12,22 @@ namespace AirTech.Server
     public class UserController : Controller
     {
         private readonly ILogger _logger;
-        private readonly UserDAO _dao;
+        private readonly ClientDAO _dao;
 
-        public UserController(UserDAO context, ILogger<UserController> logger)
+        public UserController(ClientDAO context, ILogger<UserController> logger)
         {
             this._logger = logger;
             this._dao = context;
         }
 
         [HttpGet]
-        public IEnumerable<User> Get()
+        public IEnumerable<Shared.Client> Get()
         {
             return _dao.GetUsers();
         }
 
         [HttpPost]
-        public async Task<User> Create([FromBody]User user)
+        public async Task<Shared.Client> Create([FromBody] Shared.Client user)
         {
             return await _dao.CreateUser(user);
         }

@@ -1,4 +1,5 @@
-﻿using AirTech.Shared;
+﻿using AirTech.Server.DAO;
+using AirTech.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -15,7 +16,7 @@ namespace AirTech.Server.Controllers
         private readonly ILogger _logger;
         private readonly BilletDAO _dao;
 
-        private BilletController(BilletDAO context, ILogger<BilletController> logger)
+        public BilletController(BilletDAO context, ILogger<BilletController> logger)
         {
             this._logger = logger;
             this._dao = context;
@@ -28,9 +29,9 @@ namespace AirTech.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<Billet> Create()
+        public async Task<Billet> Create(Billet billet)
         {
-            return _dao.CreateBillet();
+            return await  _dao.CreateBillet(billet);
         }
 
     }

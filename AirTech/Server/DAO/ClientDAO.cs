@@ -7,23 +7,23 @@ using Microsoft.Extensions.Logging;
 
 namespace AirTech.Server.DAO
 {
-    public class UserDAO
+    public class ClientDAO
     {
         private DatabaseService _databaseService;
 
-        public UserDAO(DatabaseService context, ILogger<UserDAO> logger)
+        public ClientDAO(DatabaseService context, ILogger<ClientDAO> logger)
         {
             this._databaseService = context;
         }
 
-        public IEnumerable<User> GetUsers()
+        public IEnumerable<Shared.Client> GetUsers()
         {
-            return _databaseService.User;
+            return _databaseService.Client;
         }
 
-        public async Task<User> CreateUser(User user)
+        public async Task<Shared.Client> CreateUser(Shared.Client user)
         {
-            await _databaseService.User.AddAsync(user);
+            await _databaseService.Client.AddAsync(user);
             await _databaseService.SaveChangesAsync();
 
             return user;

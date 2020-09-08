@@ -5,8 +5,8 @@
 
 @myTravel.From - @myTravel.To
 
-<input type="text" @bind="myUser.FirstName" placeholder="First Name"/>
-<input type="text" @bind="myUser.LastName" placeholder="Last Name"/>
+<input type="text" @bind="myVoyager.FirstName" placeholder="First Name"/>
+<input type="text" @bind="myVoyager.LastName" placeholder="Last Name"/>
 
 <button @onclick="SubmitBillet">
     Submit
@@ -16,20 +16,20 @@
 @code {
 
     [Parameter]
-    public int TravelId { get; set; }
+    public string TravelId { get; set; }
 
-    public AirTech.Shared.Travel myTravel { get; set; }
+    public AirTech.Shared.Travel myTravel { get; set; } = new AirTech.Shared.Travel();
 
-    public AirTech.Shared.User myUser { get; set; }
+    public AirTech.Shared.Voyager myVoyager { get; set; } = new AirTech.Shared.Voyager();
 
     protected override async Task OnInitializedAsync()
     {
-        myTravel = await Http.GetFromJsonAsync<AirTech.Shared.Travel>($"Travel/{TravelId}");
+        myTravel = await Http.GetFromJsonAsync<AirTech.Shared.Travel>($"Travel/{int.Parse(TravelId)}");
     }
 
     public async Task SubmitBillet()
     {
-        await Http.PostAsJsonAsync<AirTech.Shared.Billet>("Billet", new AirTech.Shared.Billet() { IdBilletNavigation = myTravel, IdUserNavigation = myUser });
+        await Http.PostAsJsonAsync<AirTech.Shared.Billet>("Billet", new AirTech.Shared.Billet() { IdTravelNavigation = myTravel, Voyager = myVoyager });
     }
 }
-}
+

@@ -22,9 +22,12 @@ namespace AirTech.Server.DAO
             return _databaseService.Billet;
         }
 
-        public async Task<Billet> CreateBillet()
+        public async Task<Billet> CreateBillet(Billet billet)
         {
-            throw new NotImplementedException();
+            await _databaseService.Billet.AddAsync(billet);
+            //todo: update count
+            await _databaseService.SaveChangesAsync();
+            return billet;
         }
     }
 }
