@@ -23,7 +23,7 @@ namespace AirTech.Server.Controllers
         [HttpGet]
         public IEnumerable<Airport> Get()
         {
-            return _dao.GetUsers();
+            return _dao.GetAirports();
         }
     }
 }

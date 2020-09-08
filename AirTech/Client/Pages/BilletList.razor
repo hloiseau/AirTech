@@ -4,11 +4,11 @@
 
 @foreach (var billet in Billets)
 {
-    <span>@billet.User.FirstName @billet.User.LastName</span>
+    <span>@billet.IdUserNavigation.FirstName @billet.IdUserNavigation.LastName</span>
    <span class="list-group-item">
-        @billet.Travel.From - @billet.Travel.To : @billet.Travel.Price €
+        @billet.IdBilletNavigation.From - @billet.IdBilletNavigation.To : @billet.IdBilletNavigation.Price €
         <br />
-        Date : @billet.Travel.Date.ToShortDateString()
+        Date : @billet.IdBilletNavigation.Date.Value
    </span>
 }
 
