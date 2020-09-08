@@ -16,6 +16,7 @@ namespace AirTech.Server.Service
 
         public virtual DbSet<Travel> Travels { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Airport> Airports { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -65,6 +66,11 @@ namespace AirTech.Server.Service
                     .IsRequired()
                     .HasColumnName("FirstName")
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Airport>(entity =>
+            {
+                entity.Property(e => e.Nom).HasColumnName("Nom");
             });
         }
     }

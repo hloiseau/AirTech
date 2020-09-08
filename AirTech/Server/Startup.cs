@@ -34,6 +34,7 @@ namespace AirTech.Server
         {
             services.AddTransient<TravelDAO>();
             services.AddTransient<UserDAO>();
+            services.AddTransient<AirportDAO>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
