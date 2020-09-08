@@ -71,6 +71,7 @@ namespace AirTech.Server.Service
             modelBuilder.Entity<Airport>(entity =>
             {
                 entity.Property(e => e.Nom).HasColumnName("Nom");
+                entity.HasKey(e => e.Nom);
             });
         }
     }
