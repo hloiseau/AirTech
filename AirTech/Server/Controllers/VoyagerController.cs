@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AirTech.Server.Controllers
 {
@@ -25,7 +26,7 @@ namespace AirTech.Server.Controllers
         [HttpGet(Name = "GetTravlers")]
         public IEnumerable<Shared.Voyager> GetTravlers()
         {
-            return _dao.GetVoyager();
+            return _dao.GetVoyagers();
         }
 
         /// <summary>
@@ -39,10 +40,10 @@ namespace AirTech.Server.Controllers
             return _dao.GetVoyagerById(id);
         }
 
-        //[HttpPost]
-        //public async Task<Business.Voyager> Create()
-        //{
-
-        //}
+        [HttpPost]
+        public async Task<Shared.Voyager> AddVoyager([FromBody] Shared.Voyager voyager)
+        {
+            return await _dao.CreateVoyagerAsync(voyager);
+        }
     }
 }
