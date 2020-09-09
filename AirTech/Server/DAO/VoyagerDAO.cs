@@ -38,7 +38,7 @@ namespace AirTech.Server.DAO
             return null;
         }
 
-        private Business.Voyager ConvertToBusiness(Models.Voyager model)
+        public static Business.Voyager ConvertToBusiness(Models.Voyager model)
         {
             return new Business.Voyager
             {
@@ -48,7 +48,7 @@ namespace AirTech.Server.DAO
             };
         }
 
-        private Shared.Voyager ConvertToEndPoint(Business.Voyager model)
+        public static Shared.Voyager ConvertToEndPoint(Business.Voyager model)
         {
             return new Shared.Voyager
             {

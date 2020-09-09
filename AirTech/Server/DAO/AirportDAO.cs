@@ -25,7 +25,7 @@ namespace AirTech.Server.DAO
             return final;
         }
 
-        private Business.Airport ConvertToBusiness(Models.Airport model)
+        public static Business.Airport ConvertToBusiness(Models.Airport model)
         {
             return new Business.Airport
             {
@@ -33,7 +33,7 @@ namespace AirTech.Server.DAO
             };
         }
 
-        private Shared.Airport ConvertToEndPoint(Business.Airport model)
+        public static Shared.Airport ConvertToEndPoint(Business.Airport model)
         {
             return new Shared.Airport
             {

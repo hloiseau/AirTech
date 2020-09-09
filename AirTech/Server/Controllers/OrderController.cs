@@ -19,9 +19,15 @@ namespace AirTech.Server.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Business.Order> Get()
+        public IEnumerable<Shared.Order> Get()
         {
             return _dao.GetOrders();
         }
+
+        //[HttpPost]
+        //public Shared.Order PostOrder(Shared.Order order)
+        //{
+        //    return _dao.PushOrder();
+        //}
     }
 }
