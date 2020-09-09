@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AirTech.Server
 {
@@ -24,10 +25,10 @@ namespace AirTech.Server
             return _dao.GetUsers();
         }
 
-        //[HttpPost]
-        //public async Task<Business.Client> Create([FromBody] Models.Client user)
-        //{
-        //    return await _dao.CreateUser(user);
-        //}
+        [HttpPost]
+        public async Task<Shared.Client> Create([FromBody] Models.Client user)
+        {
+            return await _dao.CreateUser(user);
+        }
     }
 }

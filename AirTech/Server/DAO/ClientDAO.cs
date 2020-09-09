@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AirTech.Server.DAO
 {
@@ -25,13 +26,18 @@ namespace AirTech.Server.DAO
             return final;
         }
 
-        //public async Task<Business.Client> CreateUser(Models.Client user)
-        //{
-        //    await _AirTechContext.Client.AddAsync(user);
-        //    await _AirTechContext.SaveChangesAsync();
+        public async Task<Shared.Client> CreateUser(Models.Client user)
+        {
+            await _AirTechContext.Client.AddAsync(user);
+            await _AirTechContext.SaveChangesAsync();
 
-        //    return user;
-        //}
+            List<Models.Client> Clients = _AirTechContext.Client.ToList();
+            foreach (Models.Client c in Clients)
+            {
+                if (c.FirstName == user.FirstName && c.LastName == user.LastName) return ConvertToEndPoint(ConvertToBusiness(c));
+            }
+            return null;
+        }
 
         private Business.Client ConvertToBusiness(Models.Client model)
         {
