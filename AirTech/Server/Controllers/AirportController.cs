@@ -19,7 +19,7 @@ namespace AirTech.Server.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Business.Airport> Get()
+        public IEnumerable<Shared.Airport> Get()
         {
             return _dao.GetAirports();
         }

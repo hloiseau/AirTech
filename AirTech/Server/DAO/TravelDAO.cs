@@ -16,25 +16,25 @@ namespace AirTech.Server.DAO
             this._logger = logger;
         }
 
-        public IEnumerable<Business.Travel> GetTravels()
+        public IEnumerable<Shared.Travel> GetTravels()
         {
-            List<Business.Travel> final = new List<Business.Travel>();
+            List<Shared.Travel> final = new List<Shared.Travel>();
             List<Models.Travel> travels = _AirTechContext.Travel.ToList();
             foreach (Models.Travel t in travels)
             {
-                final.Add(ConvertToBuisness(t));
+                final.Add(ConvertToEndPoint(ConvertToBuisness(t)));
             }
             return final;
         }
 
-        public Business.Travel GetTravelsById(int id)
+        public Shared.Travel GetTravelsById(int id)
         {
             IQueryable<Models.Travel> list = _AirTechContext.Travel.Where(t => t.Id == id);
             Models.Travel t = list.FirstOrDefault<Models.Travel>();
-            return ConvertToBuisness(t);
+            return ConvertToEndPoint(ConvertToBuisness(t));
         }
 
-        public Business.Travel ConvertToBuisness(Models.Travel model)
+        private Business.Travel ConvertToBuisness(Models.Travel model)
         {
             return new Business.Travel
             {
@@ -46,8 +46,8 @@ namespace AirTech.Server.DAO
                 LuggageStock = model.LuggageStock
             };
         }
-        
-        public Shared.Travel ConvertToEndPoint(Business.Travel model)
+
+        private Shared.Travel ConvertToEndPoint(Business.Travel model)
         {
             return new Shared.Travel
             {

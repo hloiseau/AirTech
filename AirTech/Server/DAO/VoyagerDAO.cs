@@ -14,31 +14,31 @@ namespace AirTech.Server.DAO
             this._airTechContext = context;
         }
 
-        public IEnumerable<Business.Voyager> GetVoyager()
+        public IEnumerable<Shared.Voyager> GetVoyager()
         {
-            List<Business.Voyager> final = new List<Business.Voyager>();
+            List<Shared.Voyager> final = new List<Shared.Voyager>();
             List<Voyager> voyagers = _airTechContext.Voyager.ToList();
             foreach(Voyager v in voyagers)
             {
-                final.Add(ConvertToBuisness(v));
+                final.Add(ConvertToEndPoint(ConvertToBuisness(v)));
             };
             return final;
         }
 
-        public Business.Voyager GetVoyagerById(int IdToFind)
+        public Shared.Voyager GetVoyagerById(int IdToFind)
         {
-            List<Voyager> voyagers = _airTechContext.Voyager.ToList();
-            foreach (Voyager v in voyagers)
+            List<Models.Voyager> voyagers = _airTechContext.Voyager.ToList();
+            foreach (Models.Voyager v in voyagers)
             {
                 if(v.Id == IdToFind)
                 {
-                    return ConvertToBuisness(v);
+                    return ConvertToEndPoint(ConvertToBuisness(v));
                 }
             }
             return null;
         }
 
-        public Business.Voyager ConvertToBuisness(Models.Voyager model)
+        private Business.Voyager ConvertToBuisness(Models.Voyager model)
         {
             return new Business.Voyager
             {
@@ -48,7 +48,7 @@ namespace AirTech.Server.DAO
             };
         }
 
-        public Shared.Voyager ConvertToEndPoint(Business.Voyager model)
+        private Shared.Voyager ConvertToEndPoint(Business.Voyager model)
         {
             return new Shared.Voyager
             {
