@@ -7,6 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.IO;
+using System.Reflection;
 
 namespace AirTech.Server
 {
@@ -28,6 +31,12 @@ namespace AirTech.Server
             services.AddDbContext<AirTechContext>(options =>
                 options.UseSqlServer(Configuration["SqlCoString"]));
             ConfigureAdditionalServices(services);
+            services.AddSwaggerGen(o => {
+                o.CustomSchemaIds(t => t.ToString());
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                o.IncludeXmlComments(xmlPath);
+            });
         }
 
         protected virtual void ConfigureAdditionalServices(IServiceCollection services)
@@ -41,6 +50,7 @@ namespace AirTech.Server
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSwagger();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -53,6 +63,11 @@ namespace AirTech.Server
                 app.UseHsts();
             }
 
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.RoutePrefix = "swagger";
+            });
             app.UseHttpsRedirection();
             app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();

@@ -55,7 +55,7 @@
 
     private void AddBillet(ChangeEventArgs e, AirTech.Shared.Travel travel)
     {
-        CountPerTravel.Add(travel, (int)e.Value);
+        CountPerTravel.Add(travel, int.Parse( e.Value.ToString()));
     }
 
 }
