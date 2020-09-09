@@ -12,7 +12,7 @@ namespace AirTech.Server.Controllers
         private readonly ILogger _logger;
         private readonly AirportDAO _dao;
 
-        public AirportController(AirportDAO context, ILogger<UserController> logger)
+        public AirportController(AirportDAO context, ILogger<AirportController> logger)
         {
             this._logger = logger;
             this._dao = context;

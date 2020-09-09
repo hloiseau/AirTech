@@ -20,7 +20,7 @@ namespace AirTech.Server.DAO
             List<Voyager> voyagers = _airTechContext.Voyager.ToList();
             foreach(Voyager v in voyagers)
             {
-                final.Add(ConvertToBuisness(v));
+                final.Add(ConvertToBusiness(v));
             };
             return final;
         }
@@ -32,13 +32,13 @@ namespace AirTech.Server.DAO
             {
                 if(v.Id == IdToFind)
                 {
-                    return ConvertToBuisness(v);
+                    return ConvertToBusiness(v);
                 }
             }
             return null;
         }
 
-        public Business.Voyager ConvertToBuisness(Models.Voyager model)
+        public Business.Voyager ConvertToBusiness(Models.Voyager model)
         {
             return new Business.Voyager
             {
