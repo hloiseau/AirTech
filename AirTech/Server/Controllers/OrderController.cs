@@ -18,8 +18,12 @@ namespace AirTech.Server.Controllers
             this._dao = context;
         }
 
-        [HttpGet]
-        public IEnumerable<Shared.Order> Get()
+        /// <summary>
+        /// returns a list of all Orders
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet(Name="GetOrders")]
+        public IEnumerable<Shared.Order> GetOrders()
         {
             return _dao.GetOrders();
         }

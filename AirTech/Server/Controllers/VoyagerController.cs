@@ -18,13 +18,22 @@ namespace AirTech.Server.Controllers
             this ._dao = context;
         }
 
-        [HttpGet]
-        public IEnumerable<Shared.Voyager> Get()
+        /// <summary>
+        /// Returns a lsit of all Travlers
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet(Name = "GetTravlers")]
+        public IEnumerable<Shared.Voyager> GetTravlers()
         {
             return _dao.GetVoyager();
         }
 
-        [HttpGet("{id}",Name ="GetVoyagerId")]
+        /// <summary>
+        /// Returns the Travler coresponding to the given ID
+        /// </summary>
+        /// <param name="id">whanted travler ID</param>
+        /// <returns></returns>
+        [HttpGet("{id}", Name = "GetTravlersById")]
         public Shared.Voyager GetVoyagerById(int id)
         {
             return _dao.GetVoyagerById(id);

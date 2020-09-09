@@ -19,14 +19,33 @@ namespace AirTech.Server
             this._dao = context;
         }
 
-        [HttpGet]
+        /// <summary>
+        /// Returns a lit of all Clients
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet(Name = "GetUsers")]
         public IEnumerable<Shared.Client> Get()
         {
             return _dao.GetUsers();
         }
 
-        [HttpPost]
-        public async Task<Shared.Client> Create([FromBody] Models.Client user)
+        /// <summary>
+        /// Returns a Client coresponding to the given ID
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("{id}", Name = "GetUsersById")]
+        public IEnumerable<Shared.Client> GetUsersById()
+        {
+            return _dao.GetUsers();
+        }
+
+        /// <summary>
+        /// creates a new Client and returns it.
+        /// </summary>
+        /// <param name="user">User to add</param>
+        /// <returns></returns>
+        [HttpPost(Name = "AddUser")]
+        public async Task<Shared.Client> AddUser([FromBody] Models.Client user)
         {
             return await _dao.CreateUser(user);
         }

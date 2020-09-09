@@ -18,12 +18,21 @@ namespace AirTech.Server.Controllers
             this._dao = context;
         }
 
-        [HttpGet]
-        public IEnumerable<Shared.Travel> Get()
+        /// <summary>
+        /// return a list of all Travels
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet(Name = "GetTravels")]
+        public IEnumerable<Shared.Travel> GetTravels()
         {
             return _dao.GetTravels();
         }
 
+        /// <summary>
+        /// Returns the Travel coresponding to the given Id
+        /// </summary>
+        /// <param name="id">whanted travel Id</param>
+        /// <returns></returns>
         [HttpGet("{id}", Name = "GetTravelById")]
         public Shared.Travel GetTravelById(int id)
         {
