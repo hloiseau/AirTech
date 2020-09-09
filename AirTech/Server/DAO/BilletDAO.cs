@@ -1,8 +1,10 @@
 ﻿
 using AirTech.Server.Models;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AirTech.Server.DAO
 {
@@ -26,13 +28,22 @@ namespace AirTech.Server.DAO
             return final;
         }
 
-        //public async Task<Billet> CreateBillet(Billet billet)
-        //{
-        //    await _AirTechContext.Billet.AddAsync(billet);
-        //    //todo: update count
-        //    await _AirTechContext.SaveChangesAsync();
-        //    return billet;
-        //}
+        internal async Task<Shared.Billet> CreateBillet(Shared.Billet billet)
+        {
+            await _AirTechContext.Billet.AddAsync(ConvertToDal(billet));
+            await _AirTechContext.SaveChangesAsync();
+
+            List<Models.Billet> billets = _AirTechContext.Billet.OrderByDescending(t => t.Id).ToList();
+            Models.Billet final = billets.FirstOrDefault<Models.Billet>();
+            return ConvertToEndPoint(final);
+        }
+
+        internal Shared.Billet GetBilletsById(int id)
+        {
+            IQueryable<Models.Billet> list = _AirTechContext.Billet.Where(t => t.Id == id);
+            Models.Billet b = list.FirstOrDefault<Models.Billet>();
+            return ConvertToEndPoint(ConvertToBusiness(b));
+        }
 
         public static Business.Billet ConvertToBusiness(Models.Billet model)
         {

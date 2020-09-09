@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Security.Policy;
+using System;
 
 namespace AirTech.Server.DAO
 {
@@ -29,19 +30,19 @@ namespace AirTech.Server.DAO
 
         public async Task<Shared.Client> CreateUser(Shared.Client user)
         {
-
             await _AirTechContext.Client.AddAsync(ConvertToDal(user));
             await _AirTechContext.SaveChangesAsync();
 
-            List<Models.Client> Clients = _AirTechContext.Client.ToList();
-            foreach (Models.Client c in Clients)
-            {
-                if (c.FirstName == user.FirstName && c.LastName == user.LastName)
-                {
-                    return ConvertToEndPoint(ConvertToBusiness(c));
-                }
-            }
-            return null;
+            List<Models.Client> clients = _AirTechContext.Client.OrderByDescending(t => t.Id).ToList();
+            Models.Client final = clients.FirstOrDefault<Models.Client>();
+            return ConvertToEndPoint(final);
+        }
+
+        internal Shared.Client GetUsersById(int id)
+        {
+            IQueryable<Models.Client> list = _AirTechContext.Client.Where(t => t.Id == id);
+            Models.Client c = list.FirstOrDefault<Models.Client>();
+            return ConvertToEndPoint(ConvertToBusiness(c));
         }
 
         public static Business.Client ConvertToBusiness(Models.Client model)

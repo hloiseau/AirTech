@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -31,6 +32,24 @@ namespace AirTech.Server.DAO
         {
             await _AirTechContext.Order.AddAsync(ConvertToDal(order));
             await _AirTechContext.SaveChangesAsync();
+
+            List<Models.Order> orders = _AirTechContext.Order.OrderByDescending(t => t.Id).ToList();
+            Models.Order final = orders.FirstOrDefault<Models.Order>();
+            return ConvertToEndPoint(final);
+        }
+
+        internal Shared.Order GetOrderById(int id)
+        {
+            IQueryable<Models.Order> list = _AirTechContext.Order.Where(t => t.Id == id);
+            Models.Order o = list.FirstOrDefault<Models.Order>();
+            return ConvertToEndPoint(ConvertToBusiness(o));
+        }
+
+        internal async Task<Shared.Order> UpdateOrderByIdAsync(int id, Shared.Order order)
+        {
+            Shared.Order o = GetOrderById(id);
+            _AirTechContext.Order.Update(ConvertToDal(order));
+            _AirTechContext.SaveChangesAsync().Wait();
 
             List<Models.Order> orders = _AirTechContext.Order.OrderByDescending(t => t.Id).ToList();
             Models.Order final = orders.FirstOrDefault<Models.Order>();
