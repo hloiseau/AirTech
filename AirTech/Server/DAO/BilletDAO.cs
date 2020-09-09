@@ -34,7 +34,7 @@ namespace AirTech.Server.DAO
         //    return billet;
         //}
 
-        private Business.Billet ConvertToBusiness(Models.Billet model)
+        public static Business.Billet ConvertToBusiness(Models.Billet model)
         {
             return new Business.Billet
             {
@@ -47,7 +47,17 @@ namespace AirTech.Server.DAO
             };
         }
 
-        private Shared.Billet ConvertToEndPoint(Business.Billet model)
+        public static ICollection<Business.Billet> ConvertToBusiness(ICollection<Models.Billet> models)
+        {
+            ICollection<Business.Billet> final = new List<Business.Billet>();
+            foreach (Models.Billet b in models)
+            {
+                final.Add(ConvertToBusiness(b));
+            }
+            return final;
+        }
+
+        public static Shared.Billet ConvertToEndPoint(Business.Billet model)
         {
             return new Shared.Billet
             {
@@ -58,6 +68,16 @@ namespace AirTech.Server.DAO
                 Date = model.Date,
                 VoyagerId = model.VoyagerId,
             };
+        }
+
+        public static ICollection<Shared.Billet> ConvertToEndPoint(ICollection<Business.Billet> models)
+        {
+            ICollection<Shared.Billet> final = new List<Shared.Billet>();
+            foreach (Business.Billet b in models)
+            {
+                final.Add(ConvertToEndPoint(b));
+            }
+            return final;
         }
     }
 }

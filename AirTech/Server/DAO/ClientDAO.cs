@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 
 namespace AirTech.Server.DAO
 {
@@ -33,7 +34,7 @@ namespace AirTech.Server.DAO
         //    return user;
         //}
 
-        private Business.Client ConvertToBusiness(Models.Client model)
+        public static Business.Client ConvertToBusiness(Models.Client model)
         {
             return new Business.Client
             {
@@ -43,7 +44,7 @@ namespace AirTech.Server.DAO
             };
         }
 
-        private Shared.Client ConvertToEndPoint(Business.Client model)
+        public static Shared.Client ConvertToEndPoint(Business.Client model)
         {
             return new Shared.Client
             {
