@@ -21,27 +21,27 @@ namespace AirTech.Server.DAO
         public IEnumerable<Shared.Order> GetOrders()
         {
             List<Shared.Order> final = new List<Shared.Order>();
-            List<Order> Orders = _AirTechContext.Order.ToList();
-            foreach(Order o in Orders)
+            List<Order> Orders = _AirTechContext.Order.Include(x => x.Cilent).Include(x => x.Billet).ToList();
+            foreach (Order o in Orders)
             {
                 final.Add(ConvertToEndPoint(ConvertToBusiness(o)));
             }
             return final;
         }
-        
+
         public async Task<Shared.Order> CreateOrderAsync(Shared.Order order)
         {
             await _AirTechContext.Order.AddAsync(ConvertToDal(order));
             await _AirTechContext.SaveChangesAsync();
 
-            List<Models.Order> orders = _AirTechContext.Order.OrderByDescending(t => t.Id).ToList();
+            List<Models.Order> orders = _AirTechContext.Order.Include(x => x.Cilent).Include(x => x.Billet).OrderByDescending(t => t.Id).ToList();
             Models.Order final = orders.FirstOrDefault<Models.Order>();
             return ConvertToEndPoint(final);
         }
 
         internal Shared.Order GetOrderById(int id)
         {
-            IQueryable<Models.Order> list = _AirTechContext.Order.Include(x=> x.Cilent).Include(x=>x.Billet).Where(t => t.Id == id);
+            IQueryable<Models.Order> list = _AirTechContext.Order.Include(x => x.Cilent).Include(x => x.Billet).Where(t => t.Id == id);
             Models.Order o = list.FirstOrDefault<Models.Order>();
             return ConvertToEndPoint(ConvertToBusiness(o));
         }
@@ -52,7 +52,7 @@ namespace AirTech.Server.DAO
             _AirTechContext.Order.Update(ConvertToDal(order));
             _AirTechContext.SaveChangesAsync().Wait();
 
-            List<Models.Order> orders = _AirTechContext.Order.OrderByDescending(t => t.Id).ToList();
+            List<Models.Order> orders = _AirTechContext.Order.Include(x => x.Cilent).Include(x => x.Billet).OrderByDescending(t => t.Id).ToList();
             Models.Order final = orders.FirstOrDefault<Models.Order>();
             return ConvertToEndPoint(final);
         }
