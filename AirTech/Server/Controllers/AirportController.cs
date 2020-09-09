@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AirTech.Server.DAO;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
-using AirTech.Shared;
-using AirTech.Server.DAO;
 
 namespace AirTech.Server.Controllers
 {
@@ -21,7 +19,7 @@ namespace AirTech.Server.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Airport> Get()
+        public IEnumerable<Business.Airport> Get()
         {
             return _dao.GetAirports();
         }

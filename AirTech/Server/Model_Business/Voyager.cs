@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AirTech.Shared
+namespace AirTech.Business
 {
     public partial class Voyager
     {

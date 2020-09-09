@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AirTech.Server.Service;
 using AirTech.Shared;
@@ -16,17 +17,30 @@ namespace AirTech.Server.DAO
             this._databaseService = context;
         }
 
-        public IEnumerable<Shared.Client> GetUsers()
+        public IEnumerable<Business.Client> GetUsers()
         {
-            return _databaseService.Client;
+            List<Business.Client> final = new List<Business.Client>();
+            List<Shared.Client> Clients = _databaseService.Client.ToList();
+            foreach (Shared.Client a in Clients)
+            {
+                final.Add(
+                    new Business.Client
+                    {
+                        LastName = a.LastName,
+                        FirstName = a.FirstName,
+                        Id = a.Id
+                    }
+                );
+            }
+            return final;
         }
 
-        public async Task<Shared.Client> CreateUser(Shared.Client user)
-        {
-            await _databaseService.Client.AddAsync(user);
-            await _databaseService.SaveChangesAsync();
+        //public async Task<Business.Client> CreateUser(Shared.Client user)
+        //{
+        //    await _databaseService.Client.AddAsync(user);
+        //    await _databaseService.SaveChangesAsync();
 
-            return user;
-        }
+        //    return user;
+        //}
     }
 }

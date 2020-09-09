@@ -18,31 +18,40 @@ namespace AirTech.Server.DAO
             this._logger = logger;
         }
 
-        public IEnumerable<Travel> GetTravels()
+        public IEnumerable<Business.Travel> GetTravels()
         {
-            List<Travel> final = new List<Travel>();
-            List<Travel> travels = _databaseService.Travel.ToList();
-            for (int i = 0; i < travels.Count; i++)
+            List<Business.Travel> final = new List<Business.Travel>();
+            List<Shared.Travel> travels = _databaseService.Travel.ToList();
+            foreach (Shared.Travel t in travels)
             {
-                 final.Add(
-                 new Travel
-                 {
-                 From = travels[i].From,
-                 To = travels[i].To,
-                 Price = travels[i].Price,
-                 Id = travels[i].Id,
-                                
-                 });
+                final.Add(
+                new Business.Travel
+                {
+                    From = t.From,
+                    To = t.To,
+                    Price = t.Price,
+                    Id = t.Id,
+                    Stock = t.Stock,
+                    LuggageStock = t.LuggageStock
+
+                });
             }
-            
             return final;
         }
 
-        public Travel GetTravelsById(int id)
+        public Business.Travel GetTravelsById(int id)
         {
-            IQueryable<Travel> list = _databaseService.Travel.Where(t => t.Id == id);
-            Travel t = list.FirstOrDefault<Travel>();
-            return t;
+            IQueryable<Shared.Travel> list = _databaseService.Travel.Where(t => t.Id == id);
+            Shared.Travel t = list.FirstOrDefault<Shared.Travel>();
+            return new Business.Travel
+            {
+                From = t.From,
+                To = t.To,
+                Price = t.Price,
+                Id = t.Id,
+                Stock = t.Stock,
+                LuggageStock = t.LuggageStock
+            };
         }
     }
 }

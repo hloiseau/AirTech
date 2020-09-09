@@ -21,15 +21,15 @@ namespace AirTech.Server
         }
 
         [HttpGet]
-        public IEnumerable<Shared.Client> Get()
+        public IEnumerable<Business.Client> Get()
         {
             return _dao.GetUsers();
         }
 
-        [HttpPost]
-        public async Task<Shared.Client> Create([FromBody] Shared.Client user)
-        {
-            return await _dao.CreateUser(user);
-        }
+        //[HttpPost]
+        //public async Task<Business.Client> Create([FromBody] Shared.Client user)
+        //{
+        //    return await _dao.CreateUser(user);
+        //}
     }
 }

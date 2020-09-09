@@ -20,13 +20,13 @@ namespace AirTech.Server.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Travel> Get()
+        public IEnumerable<Business.Travel> Get()
         {
             return _dao.GetTravels();
         }
 
         [HttpGet("{id}", Name = "GetTravelById")]
-        public Travel GetTravelById(int id)
+        public Business.Travel GetTravelById(int id)
         {
             return _dao.GetTravelsById(id);
         }

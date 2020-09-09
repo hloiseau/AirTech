@@ -23,16 +23,16 @@ namespace AirTech.Server.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Billet> Get()
+        public IEnumerable<Business.Billet> Get()
         {
             return _dao.GetBillets();
         }
 
-        [HttpPost]
-        public async Task<Billet> Create(Billet billet)
-        {
-            return await  _dao.CreateBillet(billet);
-        }
+        //[HttpPost]
+        //public async Task<Business.Billet> Create(Billet billet)
+        //{
+        //    return await  _dao.CreateBillet(billet);
+        //}
 
     }
 }
