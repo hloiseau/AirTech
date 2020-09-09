@@ -43,7 +43,7 @@ namespace AirTech.Server.DAO
                 IdOrder = model.IdOrder,
                 UnitPrice = model.UnitPrice,
                 Date = model.Date,
-                VoyagerId = model.VoyagerId,
+                VoyagerId = model.VoyagerId
             };
         }
 
@@ -66,7 +66,20 @@ namespace AirTech.Server.DAO
                 IdOrder = model.IdOrder,
                 UnitPrice = model.UnitPrice,
                 Date = model.Date,
-                VoyagerId = model.VoyagerId,
+                VoyagerId = model.VoyagerId
+            };
+        }
+
+        public static Shared.Billet ConvertToEndPoint(Models.Billet model)
+        {
+            return new Shared.Billet
+            {
+                IdTravel = model.IdTravel,
+                Id = model.Id,
+                IdOrder = model.IdOrder,
+                UnitPrice = model.UnitPrice,
+                Date = model.Date,
+                VoyagerId = model.VoyagerId
             };
         }
 
@@ -76,6 +89,62 @@ namespace AirTech.Server.DAO
             foreach (Business.Billet b in models)
             {
                 final.Add(ConvertToEndPoint(b));
+            }
+            return final;
+        }
+
+        public static ICollection<Shared.Billet> ConvertToEndPoint(ICollection<Models.Billet> models)
+        {
+            ICollection<Shared.Billet> final = new List<Shared.Billet>();
+            foreach (Models.Billet b in models)
+            {
+                final.Add(ConvertToEndPoint(b));
+            }
+            return final;
+        }
+
+        public static Models.Billet ConvertToDal(Shared.Billet model)
+        {
+            return new Models.Billet
+            {
+                IdTravel = model.IdTravel,
+                Id = model.Id,
+                IdOrder = model.IdOrder,
+                UnitPrice = model.UnitPrice,
+                Date = model.Date,
+                VoyagerId = model.VoyagerId
+            };
+        }
+
+        public static Models.Billet ConvertToDal(Business.Billet model)
+        {
+            return new Models.Billet
+            {
+                IdTravel = model.IdTravel,
+                Id = model.Id,
+                IdOrder = model.IdOrder,
+                UnitPrice = model.UnitPrice,
+                Date = model.Date,
+                VoyagerId = model.VoyagerId
+            };
+        }
+
+        public static ICollection<Models.Billet> ConvertToDal(ICollection<Shared.Billet> models)
+        {
+            ICollection<Models.Billet> final = new List<Models.Billet>();
+            foreach (Shared.Billet b in models)
+            {
+                final.Add(ConvertToDal(b));
+            }
+            return final;
+        }
+
+        public static ICollection<Models.Billet> ConvertToDal(ICollection<Business.Billet> models)
+        {
+            ICollection<Models.Billet> final = new List<Models.Billet>();
+            foreach (Business.Billet b in models)
+            {
+                final.Add(ConvertToDal(b));
             }
             return final;
         }

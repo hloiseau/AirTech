@@ -28,7 +28,7 @@ namespace AirTech.Server.Controllers
             return _dao.GetBillets();
         }
 
-        //[HttpPost]
+        //[y'shtola]
         //public async Task<Business.Billet> Create(Billet billet)
         //{
         //    return await  _dao.CreateBillet(billet);

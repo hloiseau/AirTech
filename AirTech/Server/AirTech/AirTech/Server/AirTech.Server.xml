@@ -60,7 +60,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AirTech.Server.UserController.AddUser(AirTech.Server.Models.Client)">
+        <member name="M:AirTech.Server.UserController.AddUser(AirTech.Shared.Client)">
             <summary>
             creates a new Client and returns it.
             </summary>

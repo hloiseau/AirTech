@@ -45,7 +45,7 @@ namespace AirTech.Server
         /// <param name="user">User to add</param>
         /// <returns></returns>
         [HttpPost(Name = "AddUser")]
-        public async Task<Shared.Client> AddUser([FromBody] Models.Client user)
+        public async Task<Shared.Client> AddUser([FromBody] Shared.Client user)
         {
             return await _dao.CreateUser(user);
         }

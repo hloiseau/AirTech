@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AirTech.Server.Controllers
 {
@@ -28,10 +29,10 @@ namespace AirTech.Server.Controllers
             return _dao.GetOrders();
         }
 
-        //[HttpPost]
-        //public Shared.Order PostOrder(Shared.Order order)
-        //{
-        //    return _dao.PushOrder();
-        //}
+        [HttpPost]
+        public async Task<Shared.Order> AddOrder([FromBody] Shared.Order order)
+        {
+            return await _dao.CreateOrderAsync(order);
+        }
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AirTech.Server.DAO
 {
@@ -26,10 +27,14 @@ namespace AirTech.Server.DAO
             return final;
         }
         
-        public Shared.Order PushOrder(Shared.Order order)
+        public async Task<Shared.Order> CreateOrderAsync(Shared.Order order)
         {
-            throw new NotImplementedException();
-            //je sais pas comment ajouter dans bdd lol 
+            await _AirTechContext.Order.AddAsync(ConvertToDal(order));
+            await _AirTechContext.SaveChangesAsync();
+
+            List<Models.Order> orders = _AirTechContext.Order.OrderByDescending(t => t.Id).ToList();
+            Models.Order final = orders.FirstOrDefault<Models.Order>();
+            return ConvertToEndPoint(final);
         }
 
         public static Business.Order ConvertToBusiness(Models.Order model)
@@ -53,6 +58,42 @@ namespace AirTech.Server.DAO
                 CilentId = model.CilentId,
                 Cilent = ClientDAO.ConvertToEndPoint(model.Cilent),
                 Billet = BilletDAO.ConvertToEndPoint(model.Billet)
+            };
+        }
+
+        public static Shared.Order ConvertToEndPoint(Models.Order model)
+        {
+            return new Shared.Order
+            {
+                Id = model.Id,
+                TotalAmount = model.TotalAmount,
+                CilentId = model.CilentId,
+                Cilent = ClientDAO.ConvertToEndPoint(model.Cilent),
+                Billet = BilletDAO.ConvertToEndPoint(model.Billet)
+            };
+        }
+
+        public static Models.Order ConvertToDal(Shared.Order model)
+        {
+            return new Models.Order
+            {
+                Id = model.Id,
+                TotalAmount = model.TotalAmount,
+                CilentId = model.CilentId,
+                Cilent = ClientDAO.ConvertToDal(model.Cilent),
+                Billet = BilletDAO.ConvertToDal(model.Billet)
+            };
+        }
+
+        public static Models.Order ConvertToDal(Business.Order model)
+        {
+            return new Models.Order
+            {
+                Id = model.Id,
+                TotalAmount = model.TotalAmount,
+                CilentId = model.CilentId,
+                Cilent = ClientDAO.ConvertToDal(model.Cilent),
+                Billet = BilletDAO.ConvertToDal(model.Billet)
             };
         }
     }
