@@ -34,9 +34,9 @@ namespace AirTech.Server
         /// </summary>
         /// <returns></returns>
         [HttpGet("{id}", Name = "GetUsersById")]
-        public IEnumerable<Shared.Client> GetUsersById()
+        public Shared.Client GetUsersById(int id)
         {
-            return _dao.GetUsers();
+            return _dao.GetUsersById(id);
         }
 
         /// <summary>

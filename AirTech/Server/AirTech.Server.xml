@@ -16,7 +16,26 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:AirTech.Server.Controllers.BilletController.GetTiketsById(System.Int32)">
+            <summary>
+            Returns a list of all Tikets
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AirTech.Server.Controllers.BilletController.CreateBillet(AirTech.Shared.Billet)">
+            <summary>
+            create a new Ticket and returns it
+            </summary>
+            <param name="billet"></param>
+            <returns></returns>
+        </member>
         <member name="M:AirTech.Server.Controllers.OrderController.GetOrders">
+            <summary>
+            Returns a list of all Orders
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AirTech.Server.Controllers.OrderController.GetOrderById(System.Int32)">
             <summary>
             Returns a list of all Orders
             </summary>
@@ -54,7 +73,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AirTech.Server.UserController.GetUsersById">
+        <member name="M:AirTech.Server.UserController.GetUsersById(System.Int32)">
             <summary>
             Returns a Client coresponding to the given ID
             </summary>

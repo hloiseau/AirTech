@@ -23,16 +23,32 @@ namespace AirTech.Server.Controllers
         /// Returns a list of all Orders
         /// </summary>
         /// <returns></returns>
-        [HttpGet(Name="GetOrders")]
+        [HttpGet(Name = "GetOrders")]
         public IEnumerable<Shared.Order> GetOrders()
         {
             return _dao.GetOrders();
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Returns a list of all Orders
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("{id}", Name = "GetOrderById")]
+        public Shared.Order GetOrderById(int id)
+        {
+            return _dao.GetOrderById(id);
+        }
+
+        [HttpPost(Name = "AddOrder")]
         public async Task<Shared.Order> AddOrder([FromBody] Shared.Order order)
         {
             return await _dao.CreateOrderAsync(order);
+        }
+
+        [HttpPut("{id}", Name = "UpdateOrderById")]
+        public async Task<Shared.Order> UpdateOrderById(int id, [FromBody] Shared.Order order)
+        {
+            return await _dao.UpdateOrderByIdAsync(id, order);
         }
     }
 }
