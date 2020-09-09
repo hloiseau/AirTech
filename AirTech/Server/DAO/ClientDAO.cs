@@ -1,9 +1,7 @@
-﻿using System;
+﻿using AirTech.Server.Models;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using AirTech.Server.Models;
-using Microsoft.Extensions.Logging;
 
 namespace AirTech.Server.DAO
 {

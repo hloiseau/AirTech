@@ -1,9 +1,7 @@
 ﻿using AirTech.Server.Models;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace AirTech.Server.DAO
 {
@@ -22,14 +20,7 @@ namespace AirTech.Server.DAO
             List<Voyager> voyagers = _airTechContext.Voyager.ToList();
             foreach(Voyager v in voyagers)
             {
-                final.Add(
-                    new Business.Voyager
-                    {
-                        Id = v.Id,
-                        LastName = v.LastName,
-                        FirstName = v.FirstName
-                    }
-                );
+                final.Add(ConvertToBuisness(v));
             };
             return final;
         }
@@ -41,15 +32,30 @@ namespace AirTech.Server.DAO
             {
                 if(v.Id == IdToFind)
                 {
-                    return new Business.Voyager
-                    {
-                        Id = v.Id,
-                        LastName = v.LastName,
-                        FirstName = v.FirstName
-                    };
+                    return ConvertToBuisness(v);
                 }
             }
             return null;
+        }
+
+        public Business.Voyager ConvertToBuisness(Models.Voyager model)
+        {
+            return new Business.Voyager
+            {
+                Id = model.Id,
+                LastName = model.LastName,
+                FirstName = model.FirstName
+            };
+        }
+
+        public Shared.Voyager ConvertToEndPoint(Business.Voyager model)
+        {
+            return new Shared.Voyager
+            {
+                Id = model.Id,
+                LastName = model.LastName,
+                FirstName = model.FirstName
+            };
         }
     }
 }

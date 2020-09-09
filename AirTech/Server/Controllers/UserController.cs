@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+﻿using AirTech.Server.DAO;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using AirTech.Server.DAO;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace AirTech.Server
 {
