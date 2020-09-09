@@ -15,13 +15,13 @@ namespace AirTech.Server.DAO
             this._AirTechContext = context;
         }
 
-        public IEnumerable<Business.Billet> GetBillets()
+        public IEnumerable<Shared.Billet> GetBillets()
         {
-            List<Business.Billet> final = new List<Business.Billet>();
-            List<Billet> Billets = _AirTechContext.Billet.ToList();
-            foreach (Billet b in Billets)
+            List<Shared.Billet> final = new List<Shared.Billet>();
+            List<Models.Billet> Billets = _AirTechContext.Billet.ToList();
+            foreach (Models.Billet b in Billets)
             {
-                final.Add(ConvertToBusiness(b));
+                final.Add(ConvertToEndPoint(ConvertToBuisness(b)));
             }
             return final;
         }
@@ -34,7 +34,7 @@ namespace AirTech.Server.DAO
         //    return billet;
         //}
 
-        public Business.Billet ConvertToBusiness(Models.Billet model)
+        private Business.Billet ConvertToBuisness(Models.Billet model)
         {
             return new Business.Billet
             {
@@ -47,7 +47,7 @@ namespace AirTech.Server.DAO
             };
         }
 
-        public Shared.Billet ConvertToEndPoint(Business.Billet model)
+        private Shared.Billet ConvertToEndPoint(Business.Billet model)
         {
             return new Shared.Billet
             {

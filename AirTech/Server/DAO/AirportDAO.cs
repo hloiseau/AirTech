@@ -14,18 +14,18 @@ namespace AirTech.Server.DAO
             this._AirTechContext = context;
         }
 
-        public IEnumerable<Business.Airport> GetAirports()
+        public IEnumerable<Shared.Airport> GetAirports()
         {
-            List<Business.Airport> final = new List<Business.Airport>();
-            List<Airport> Airports = _AirTechContext.Airport.ToList();
-            foreach (Airport a in Airports)
+            List<Shared.Airport> final = new List<Shared.Airport>();
+            List<Models.Airport> Airports = _AirTechContext.Airport.ToList();
+            foreach (Models.Airport a in Airports)
             {
-                final.Add(ConvertToBusiness(a));
+                final.Add(ConvertToEndPoint(ConvertToBuisness(a)));
             }
             return final;
         }
 
-        public Business.Airport ConvertToBusiness(Models.Airport model)
+        private Business.Airport ConvertToBuisness(Models.Airport model)
         {
             return new Business.Airport
             {
@@ -33,7 +33,7 @@ namespace AirTech.Server.DAO
             };
         }
 
-        public Shared.Airport ConvertToEndPoint(Business.Airport model)
+        private Shared.Airport ConvertToEndPoint(Business.Airport model)
         {
             return new Shared.Airport
             {

@@ -19,7 +19,7 @@ namespace AirTech.Server.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Business.Billet> Get()
+        public IEnumerable<Shared.Billet> Get()
         {
             return _dao.GetBillets();
         }

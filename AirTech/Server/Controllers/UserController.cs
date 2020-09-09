@@ -19,7 +19,7 @@ namespace AirTech.Server
         }
 
         [HttpGet]
-        public IEnumerable<Business.Client> Get()
+        public IEnumerable<Shared.Client> Get()
         {
             return _dao.GetUsers();
         }
