@@ -19,7 +19,7 @@ namespace AirTech.Server.Controllers
         }
 
         /// <summary>
-        /// returns a list of all Tikets
+        /// Returns a list of all Tikets
         /// </summary>
         /// <returns></returns>
         [HttpGet(Name = "GetTikets")]

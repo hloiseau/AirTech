@@ -40,7 +40,7 @@ namespace AirTech.Server
         }
 
         /// <summary>
-        /// creates a new Client and returns it.
+        /// Creates a new Client and returns it.
         /// </summary>
         /// <param name="user">User to add</param>
         /// <returns></returns>
