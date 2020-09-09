@@ -1,5 +1,4 @@
 ﻿using AirTech.Server.DAO;
-using AirTech.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;

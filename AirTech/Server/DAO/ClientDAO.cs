@@ -2,26 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AirTech.Server.Service;
-using AirTech.Shared;
+using AirTech.Server.Models;
 using Microsoft.Extensions.Logging;
 
 namespace AirTech.Server.DAO
 {
     public class ClientDAO
     {
-        private DatabaseService _databaseService;
+        private AirTechContext _AirTechContext;
 
-        public ClientDAO(DatabaseService context, ILogger<ClientDAO> logger)
+        public ClientDAO(AirTechContext context, ILogger<ClientDAO> logger)
         {
-            this._databaseService = context;
+            this._AirTechContext = context;
         }
 
         public IEnumerable<Business.Client> GetUsers()
         {
             List<Business.Client> final = new List<Business.Client>();
-            List<Shared.Client> Clients = _databaseService.Client.ToList();
-            foreach (Shared.Client a in Clients)
+            List<Models.Client> Clients = _AirTechContext.Client.ToList();
+            foreach (Models.Client a in Clients)
             {
                 final.Add(
                     new Business.Client
@@ -35,10 +34,10 @@ namespace AirTech.Server.DAO
             return final;
         }
 
-        //public async Task<Business.Client> CreateUser(Shared.Client user)
+        //public async Task<Business.Client> CreateUser(Models.Client user)
         //{
-        //    await _databaseService.Client.AddAsync(user);
-        //    await _databaseService.SaveChangesAsync();
+        //    await _AirTechContext.Client.AddAsync(user);
+        //    await _AirTechContext.SaveChangesAsync();
 
         //    return user;
         //}

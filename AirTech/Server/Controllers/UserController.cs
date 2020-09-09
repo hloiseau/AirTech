@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
-using AirTech.Shared;
 using AirTech.Server.DAO;
 using System.Threading.Tasks;
 
@@ -27,7 +26,7 @@ namespace AirTech.Server
         }
 
         //[HttpPost]
-        //public async Task<Business.Client> Create([FromBody] Shared.Client user)
+        //public async Task<Business.Client> Create([FromBody] Models.Client user)
         //{
         //    return await _dao.CreateUser(user);
         //}

@@ -1,5 +1,4 @@
 ﻿using AirTech.Server.Models;
-using AirTech.Shared;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -9,20 +8,20 @@ namespace AirTech.Server.DAO
 {
     public class TravelDAO
     {
-        AirTechContext _databaseService;
+        AirTechContext _AirTechContext;
         ILogger _logger;
 
         public TravelDAO(AirTechContext context, ILogger<TravelDAO> logger)
         {
-            this._databaseService = context;
+            this._AirTechContext = context;
             this._logger = logger;
         }
 
         public IEnumerable<Business.Travel> GetTravels()
         {
             List<Business.Travel> final = new List<Business.Travel>();
-            List<Shared.Travel> travels = _databaseService.Travel.ToList();
-            foreach (Shared.Travel t in travels)
+            List<Models.Travel> travels = _AirTechContext.Travel.ToList();
+            foreach (Models.Travel t in travels)
             {
                 final.Add(
                 new Business.Travel
@@ -41,8 +40,8 @@ namespace AirTech.Server.DAO
 
         public Business.Travel GetTravelsById(int id)
         {
-            IQueryable<Shared.Travel> list = _databaseService.Travel.Where(t => t.Id == id);
-            Shared.Travel t = list.FirstOrDefault<Shared.Travel>();
+            IQueryable<Models.Travel> list = _AirTechContext.Travel.Where(t => t.Id == id);
+            Models.Travel t = list.FirstOrDefault<Models.Travel>();
             return new Business.Travel
             {
                 From = t.From,

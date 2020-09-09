@@ -1,5 +1,5 @@
-﻿using AirTech.Server.Service;
-using AirTech.Shared;
+﻿
+using AirTech.Server.Models;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,17 +8,17 @@ namespace AirTech.Server.DAO
 {
     public class BilletDAO
     {
-        private DatabaseService _databaseService;
+        private AirTechContext _AirTechContext;
 
-        public BilletDAO(DatabaseService context, ILogger<BilletDAO> logger)
+        public BilletDAO(AirTechContext context, ILogger<BilletDAO> logger)
         {
-            this._databaseService = context;
+            this._AirTechContext = context;
         }
 
         public IEnumerable<Business.Billet> GetBillets()
         {
             List<Business.Billet> final = new List<Business.Billet>();
-            List<Billet> Billets = _databaseService.Billet.ToList();
+            List<Billet> Billets = _AirTechContext.Billet.ToList();
             foreach (Billet a in Billets)
             {
                 final.Add(
@@ -39,9 +39,9 @@ namespace AirTech.Server.DAO
 
         //public async Task<Billet> CreateBillet(Billet billet)
         //{
-        //    await _databaseService.Billet.AddAsync(billet);
+        //    await _AirTechContext.Billet.AddAsync(billet);
         //    //todo: update count
-        //    await _databaseService.SaveChangesAsync();
+        //    await _AirTechContext.SaveChangesAsync();
         //    return billet;
         //}
 }

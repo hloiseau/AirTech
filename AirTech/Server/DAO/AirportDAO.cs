@@ -1,24 +1,24 @@
-﻿using AirTech.Server.Service;
-using AirTech.Shared;
+﻿
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
+using AirTech.Server.Models;
 
 namespace AirTech.Server.DAO
 {
     public class AirportDAO
     {
-        private DatabaseService _databaseService;
+        private AirTechContext _AirTechContext;
 
-        public AirportDAO(DatabaseService context, ILogger<AirportDAO> logger)
+        public AirportDAO(AirTechContext context, ILogger<AirportDAO> logger)
         {
-            this._databaseService = context;
+            this._AirTechContext = context;
         }
 
         public IEnumerable<Business.Airport> GetAirports()
         {
             List<Business.Airport> final = new List<Business.Airport>();
-            List<Airport> Airports = _databaseService.Airport.ToList();
+            List<Airport> Airports = _AirTechContext.Airport.ToList();
             foreach (Airport a in Airports)
             {
                 final.Add(
