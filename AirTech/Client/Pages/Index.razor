@@ -1,24 +1,61 @@
 ﻿@inject HttpClient Http
-
+@inject NavigationManager Nav
 @page "/"
 
-<h1>Hello, world!</h1>
+<h1>Reservation</h1>
 
-Welcome to your new app.
+<input type="text" @bind="Client.FirstName" placeholder="FirstName"/>
+<input type="text" @bind="Client.LastName" placeholder="LastName"/>
 
-<TravelList Travels="@Travels" />
+<ul class="list-group">
+    @foreach (var travel in Travels)
+    {
+        <li class="list-group-item">
+            @travel.From - @travel.To : @travel.Price €
+            Number of places : @travel.Stock
+
+            <input type="number" @onchange="@(e=> AddBillet(e, travel))" />
+        </li>
+
+    }
+
+</ul>
+<button @onclick="RedirectToOrder">Submit</button>
 
 @code{
 
+
     private List<AirTech.Shared.Travel> Travels { get; set; } = new List<AirTech.Shared.Travel>();
+
+    private Dictionary<AirTech.Shared.Travel, int> CountPerTravel { get; set; } = new Dictionary<AirTech.Shared.Travel, int>();
+
+    private AirTech.Shared.Client Client { get; set; } = new AirTech.Shared.Client();
+
 
     protected override async Task OnInitializedAsync()
     {
         Travels = await Http.GetFromJsonAsync<List<AirTech.Shared.Travel>>("Travel");
 
-        if(Travels == null)
+        if (Travels == null)
         {
             Travels = new List<AirTech.Shared.Travel>();
         }
     }
+
+    private async Task RedirectToOrder()
+    {
+        List<AirTech.Shared.Billet> billets = new List<AirTech.Shared.Billet>();
+        foreach((AirTech.Shared.Travel travel, int nb) in CountPerTravel)
+        {
+            billets.Add(new AirTech.Shared.Billet { IdTravel = travel.Id, Date = DateTime.UtcNow, UnitPrice = travel.Price });
+        }
+        var response = await Http.PostAsJsonAsync<AirTech.Shared.Order>("Order", new AirTech.Shared.Order() { Billet = billets, Cilent = Client });
+        Nav.NavigateTo($"/order/{await response.Content.ReadAsStringAsync()}");
+    }
+
+    private void AddBillet(ChangeEventArgs e, AirTech.Shared.Travel travel)
+    {
+        CountPerTravel.Add(travel, (int)e.Value);
+    }
+
 }

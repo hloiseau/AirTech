@@ -1,0 +1,48 @@
+﻿@inject HttpClient Http
+@inject NavigationManager Nav
+
+@page "/order/{OrderId}"
+<h3>Order</h3>
+
+@foreach (var billet in MyOrder.Billet)
+{
+<span>@billet.IdTravelNavigation.From - @billet.IdTravelNavigation.To</span>
+<span>
+    Date: @billet.Date, Price: @billet.UnitPrice
+</span>
+<span>
+    <input type="text" @bind="billet.Voyager.FirstName" placeholder="First Name" />
+    <input type="text" @bind="billet.Voyager.LastName" placeholder="Last Name" /> 
+</span>
+}
+
+<label>Luggage</label>
+<input type="number" @bind="MyOrder.Luggage" />
+
+<button>
+    Submit
+</button>
+
+
+@code {
+
+    [Parameter]
+    public string OrderId { get; set; }
+
+    public AirTech.Shared.Order MyOrder { get; set; } = new AirTech.Shared.Order();
+
+    protected override async Task OnInitializedAsync()
+    {
+        MyOrder = await Http.GetFromJsonAsync<AirTech.Shared.Order>($"Order/{int.Parse(OrderId)}");
+    }
+
+    private async Task Submit()
+    {
+        var response = await Http.PostAsJsonAsync<AirTech.Shared.Order>("Order/update", MyOrder );
+        Nav.NavigateTo($"/final/{await response.Content.ReadAsStringAsync()}");
+    }
+
+
+
+}
+

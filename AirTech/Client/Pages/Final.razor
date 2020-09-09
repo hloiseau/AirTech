@@ -1,0 +1,39 @@
+﻿@inject HttpClient Http
+@inject NavigationManager Nav
+
+@page "/final/{OrderId}"
+<h3>Order</h3>
+
+@foreach (var billet in MyOrder.Billet)
+{
+<span>@billet.IdTravelNavigation.From - @billet.IdTravelNavigation.To</span>
+<span>
+    Date: @billet.Date, Price: @billet.UnitPrice
+</span>
+<span>
+    @billet.Voyager.FirstName
+    @billet.Voyager.LastName 
+</span>
+}
+
+<label>Luggage</label>
+@MyOrder.Luggage
+
+<label>Price</label>
+@MyOrder.TotalAmount
+
+
+@code {
+
+    [Parameter]
+    public string OrderId { get; set; }
+
+    public AirTech.Shared.Order MyOrder { get; set; } = new AirTech.Shared.Order();
+
+    protected override async Task OnInitializedAsync()
+    {
+        MyOrder = await Http.GetFromJsonAsync<AirTech.Shared.Order>($"Order/{int.Parse(OrderId)}");
+    }
+
+}
+

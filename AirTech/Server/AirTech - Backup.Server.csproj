@@ -27,7 +27,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Client\AirTech.Client.csproj" />
-    <ProjectReference Include="..\Shared\AirTech.Shared.csproj" />
   </ItemGroup>
 
 
