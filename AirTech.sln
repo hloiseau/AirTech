@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30406.217
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirTech.Server", "AirTech\Server\AirTech.Server.csproj", "{97F61DA1-E62A-417C-8239-23A4C8E9D3C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirTech.Server", "AirTech\Server\AirTech.Server.csproj", "{97F61DA1-E62A-417C-8239-23A4C8E9D3C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirTech.Client", "AirTech\Client\AirTech.Client.csproj", "{2E9DB225-73C0-4FD9-A446-E5588469B9E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirTech.Client", "AirTech\Client\AirTech.Client.csproj", "{2E9DB225-73C0-4FD9-A446-E5588469B9E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirTech.Shared", "AirTech\Shared\AirTech.Shared.csproj", "{EB8B4A2F-38DD-47C0-AF4B-31DA26126340}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirTech.Shared", "AirTech\Shared\AirTech.Shared.csproj", "{EB8B4A2F-38DD-47C0-AF4B-31DA26126340}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

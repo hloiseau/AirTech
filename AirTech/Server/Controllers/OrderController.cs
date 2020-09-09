@@ -7,28 +7,27 @@ namespace AirTech.Server.Controllers
 {
     [ApiController]
     [Route("[Controller]")]
-    public class BilletController : ControllerBase
+    public class OrderController
     {
         private readonly ILogger _logger;
-        private readonly BilletDAO _dao;
+        private readonly OrderDAO _dao;
 
-        public BilletController(BilletDAO context, ILogger<BilletController> logger)
+        public OrderController(OrderDAO context, ILogger<OrderController> logger)
         {
             this._logger = logger;
             this._dao = context;
         }
 
         [HttpGet]
-        public IEnumerable<Shared.Billet> Get()
+        public IEnumerable<Shared.Order> Get()
         {
-            return _dao.GetBillets();
+            return _dao.GetOrders();
         }
 
         //[HttpPost]
-        //public async Task<Business.Billet> Create(Billet billet)
+        //public Shared.Order PostOrder(Shared.Order order)
         //{
-        //    return await  _dao.CreateBillet(billet);
+        //    return _dao.PushOrder();
         //}
-
     }
 }

@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+﻿using AirTech.Server.DAO;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using AirTech.Server.DAO;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AirTech.Server
@@ -20,15 +20,15 @@ namespace AirTech.Server
         }
 
         [HttpGet]
-        public IEnumerable<Business.Client> Get()
+        public IEnumerable<Shared.Client> Get()
         {
             return _dao.GetUsers();
         }
 
-        //[HttpPost]
-        //public async Task<Business.Client> Create([FromBody] Models.Client user)
-        //{
-        //    return await _dao.CreateUser(user);
-        //}
+        [HttpPost]
+        public async Task<Shared.Client> Create([FromBody] Models.Client user)
+        {
+            return await _dao.CreateUser(user);
+        }
     }
 }

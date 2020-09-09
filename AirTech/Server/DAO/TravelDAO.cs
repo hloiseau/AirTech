@@ -1,6 +1,5 @@
 ﻿using AirTech.Server.Models;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,39 +16,47 @@ namespace AirTech.Server.DAO
             this._logger = logger;
         }
 
-        public IEnumerable<Business.Travel> GetTravels()
+        public IEnumerable<Shared.Travel> GetTravels()
         {
-            List<Business.Travel> final = new List<Business.Travel>();
+            List<Shared.Travel> final = new List<Shared.Travel>();
             List<Models.Travel> travels = _AirTechContext.Travel.ToList();
             foreach (Models.Travel t in travels)
             {
-                final.Add(
-                new Business.Travel
-                {
-                    From = t.From,
-                    To = t.To,
-                    Price = t.Price,
-                    Id = t.Id,
-                    Stock = t.Stock,
-                    LuggageStock = t.LuggageStock
-
-                });
+                final.Add(ConvertToEndPoint(ConvertToBusiness(t)));
             }
             return final;
         }
 
-        public Business.Travel GetTravelsById(int id)
+        public Shared.Travel GetTravelsById(int id)
         {
             IQueryable<Models.Travel> list = _AirTechContext.Travel.Where(t => t.Id == id);
             Models.Travel t = list.FirstOrDefault<Models.Travel>();
+            return ConvertToEndPoint(ConvertToBusiness(t));
+        }
+
+        public static Business.Travel ConvertToBusiness(Models.Travel model)
+        {
             return new Business.Travel
             {
-                From = t.From,
-                To = t.To,
-                Price = t.Price,
-                Id = t.Id,
-                Stock = t.Stock,
-                LuggageStock = t.LuggageStock
+                From = model.From,
+                To = model.To,
+                Price = model.Price,
+                Id = model.Id,
+                Stock = model.Stock,
+                LuggageStock = model.LuggageStock
+            };
+        }
+
+        public static Shared.Travel ConvertToEndPoint(Business.Travel model)
+        {
+            return new Shared.Travel
+            {
+                From = model.From,
+                To = model.To,
+                Price = model.Price,
+                Id = model.Id,
+                Stock = model.Stock,
+                LuggageStock = model.LuggageStock
             };
         }
     }

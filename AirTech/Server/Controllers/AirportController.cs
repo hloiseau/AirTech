@@ -12,14 +12,14 @@ namespace AirTech.Server.Controllers
         private readonly ILogger _logger;
         private readonly AirportDAO _dao;
 
-        public AirportController(AirportDAO context, ILogger<UserController> logger)
+        public AirportController(AirportDAO context, ILogger<AirportController> logger)
         {
             this._logger = logger;
             this._dao = context;
         }
 
         [HttpGet]
-        public IEnumerable<Business.Airport> Get()
+        public IEnumerable<Shared.Airport> Get()
         {
             return _dao.GetAirports();
         }
