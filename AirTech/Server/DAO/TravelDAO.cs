@@ -1,4 +1,4 @@
-﻿using AirTech.Server.Service;
+﻿using AirTech.Server.Models;
 using AirTech.Shared;
 using Microsoft.Extensions.Logging;
 using System;
@@ -9,10 +9,10 @@ namespace AirTech.Server.DAO
 {
     public class TravelDAO
     {
-        DatabaseService _databaseService;
+        AirTechContext _databaseService;
         ILogger _logger;
 
-        public TravelDAO(DatabaseService context, ILogger<TravelDAO> logger)
+        public TravelDAO(AirTechContext context, ILogger<TravelDAO> logger)
         {
             this._databaseService = context;
             this._logger = logger;

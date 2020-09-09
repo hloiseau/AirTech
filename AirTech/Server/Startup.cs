@@ -1,6 +1,6 @@
 using AirTech.Server.Controllers;
 using AirTech.Server.DAO;
-using AirTech.Server.Service;
+using AirTech.Server.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -25,7 +25,7 @@ namespace AirTech.Server
         {
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddDbContext<DatabaseService>(options =>
+            services.AddDbContext<AirTechContext>(options =>
                 options.UseSqlServer(Configuration["SqlCoString"]));
             ConfigureAdditionalServices(services);
         }

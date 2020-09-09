@@ -2,32 +2,30 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
-using AirTech.Shared;
 
 
-namespace AirTech.Server.Service
+namespace AirTech.Server.Models
 {
-    public partial class DatabaseService : DbContext
+    public partial class AirTechContext : DbContext
     {
-        public DatabaseService()
+        public AirTechContext()
         {
         }
 
-        public DatabaseService(DbContextOptions<DatabaseService> options, IConfiguration configuration)
-             : base(options)
+        public AirTechContext(DbContextOptions<AirTechContext> options, IConfiguration configuration)
+            : base(options)
         {
             _configuration = configuration;
         }
 
         private IConfiguration _configuration;
-
-
         public virtual DbSet<Airport> Airport { get; set; }
         public virtual DbSet<Billet> Billet { get; set; }
-        public virtual DbSet<Shared.Client> Client { get; set; }
+        public virtual DbSet<Client> Client { get; set; }
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<Travel> Travel { get; set; }
         public virtual DbSet<Voyager> Voyager { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -69,8 +67,7 @@ namespace AirTech.Server.Service
                     .HasConstraintName("FK_Billet_Voyager");
             });
 
-
-            modelBuilder.Entity<Shared.Client>(entity =>
+            modelBuilder.Entity<Client>(entity =>
             {
                 entity.Property(e => e.FirstName)
                     .HasMaxLength(50)
