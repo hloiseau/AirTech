@@ -19,7 +19,7 @@ namespace AirTech.Server.Controllers
         }
 
         /// <summary>
-        /// return a list of all Travels
+        /// Returns a list of all Travels
         /// </summary>
         /// <returns></returns>
         [HttpGet(Name = "GetTravels")]

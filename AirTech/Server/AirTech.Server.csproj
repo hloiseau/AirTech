@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>AirTech\AirTech\Server\AirTech.Server.xml</DocumentationFile>
+    <DocumentationFile>AirTech.Server.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

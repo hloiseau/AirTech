@@ -12,19 +12,19 @@
         </member>
         <member name="M:AirTech.Server.Controllers.BilletController.GetTikets">
             <summary>
-            returns a list of all Tikets
+            Returns a list of all Tikets
             </summary>
             <returns></returns>
         </member>
         <member name="M:AirTech.Server.Controllers.OrderController.GetOrders">
             <summary>
-            returns a list of all Orders
+            Returns a list of all Orders
             </summary>
             <returns></returns>
         </member>
         <member name="M:AirTech.Server.Controllers.TravelController.GetTravels">
             <summary>
-            return a list of all Travels
+            Returns a list of all Travels
             </summary>
             <returns></returns>
         </member>
@@ -62,7 +62,7 @@
         </member>
         <member name="M:AirTech.Server.UserController.AddUser(AirTech.Server.Models.Client)">
             <summary>
-            creates a new Client and returns it.
+            Creates a new Client and returns it.
             </summary>
             <param name="user">User to add</param>
             <returns></returns>

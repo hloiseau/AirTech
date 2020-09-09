@@ -19,7 +19,7 @@ namespace AirTech.Server.Controllers
         }
 
         /// <summary>
-        /// returns a list of all Orders
+        /// Returns a list of all Orders
         /// </summary>
         /// <returns></returns>
         [HttpGet(Name="GetOrders")]
