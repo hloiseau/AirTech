@@ -46,7 +46,10 @@
         List<AirTech.Shared.Billet> billets = new List<AirTech.Shared.Billet>();
         foreach((AirTech.Shared.Travel travel, int nb) in CountPerTravel)
         {
-            billets.Add(new AirTech.Shared.Billet { IdTravel = travel.Id, Date = DateTime.UtcNow, UnitPrice = travel.Price });
+            for (int i = 0; i < nb; i++)
+            {
+                billets.Add(new AirTech.Shared.Billet { IdTravel = travel.Id, Date = DateTime.UtcNow, UnitPrice = travel.Price });
+            }
         }
         var response = await Http.PostAsJsonAsync<AirTech.Shared.Order>("Order", new AirTech.Shared.Order() { Billet = billets, Cilent = Client });
         var insertedOrder = await response.Content.ReadFromJsonAsync<AirTech.Shared.Order>();

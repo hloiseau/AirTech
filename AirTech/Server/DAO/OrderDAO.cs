@@ -1,4 +1,5 @@
 ﻿using AirTech.Server.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -40,7 +41,7 @@ namespace AirTech.Server.DAO
 
         internal Shared.Order GetOrderById(int id)
         {
-            IQueryable<Models.Order> list = _AirTechContext.Order.Where(t => t.Id == id);
+            IQueryable<Models.Order> list = _AirTechContext.Order.Include(x=> x.Cilent).Include(x=>x.Billet).Where(t => t.Id == id);
             Models.Order o = list.FirstOrDefault<Models.Order>();
             return ConvertToEndPoint(ConvertToBusiness(o));
         }
