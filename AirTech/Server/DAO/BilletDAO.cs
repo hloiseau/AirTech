@@ -19,23 +19,12 @@ namespace AirTech.Server.DAO
         {
             List<Business.Billet> final = new List<Business.Billet>();
             List<Billet> Billets = _AirTechContext.Billet.ToList();
-            foreach (Billet a in Billets)
+            foreach (Billet b in Billets)
             {
-                final.Add(
-                    new Business.Billet
-                    {
-                        IdTravel = a.IdTravel,
-                        Id = a.Id,
-                        IdOrder = a.IdOrder,
-                        UnitPrice = a.UnitPrice,
-                        Date = a.Date,
-                        VoyagerId = a.VoyagerId,
-                    }
-                );
+                final.Add(ConvertToBuisness(b));
             }
             return final;
         }
-    }
 
         //public async Task<Billet> CreateBillet(Billet billet)
         //{
@@ -44,4 +33,31 @@ namespace AirTech.Server.DAO
         //    await _AirTechContext.SaveChangesAsync();
         //    return billet;
         //}
+
+        public Business.Billet ConvertToBuisness(Models.Billet model)
+        {
+            return new Business.Billet
+            {
+                IdTravel = model.IdTravel,
+                Id = model.Id,
+                IdOrder = model.IdOrder,
+                UnitPrice = model.UnitPrice,
+                Date = model.Date,
+                VoyagerId = model.VoyagerId,
+            };
+        }
+
+        public Shared.Billet ConvertToEndPoint(Business.Billet model)
+        {
+            return new Shared.Billet
+            {
+                IdTravel = model.IdTravel,
+                Id = model.Id,
+                IdOrder = model.IdOrder,
+                UnitPrice = model.UnitPrice,
+                Date = model.Date,
+                VoyagerId = model.VoyagerId,
+            };
+        }
+    }
 }

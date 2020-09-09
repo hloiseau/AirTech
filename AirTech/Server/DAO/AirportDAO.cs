@@ -21,14 +21,25 @@ namespace AirTech.Server.DAO
             List<Airport> Airports = _AirTechContext.Airport.ToList();
             foreach (Airport a in Airports)
             {
-                final.Add(
-                    new Business.Airport
-                    {
-                        Name = a.Name
-                    }
-                ) ;
+                final.Add(ConvertToBuisness(a));
             }
             return final;
+        }
+
+        public Business.Airport ConvertToBuisness(Models.Airport model)
+        {
+            return new Business.Airport
+            {
+                Name = model.Name
+            };
+        }
+
+        public Shared.Airport ConvertToEndPoint(Business.Airport model)
+        {
+            return new Shared.Airport
+            {
+                Name = model.Name
+            };
         }
     }
 }

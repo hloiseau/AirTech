@@ -20,16 +20,9 @@ namespace AirTech.Server.DAO
         {
             List<Business.Client> final = new List<Business.Client>();
             List<Models.Client> Clients = _AirTechContext.Client.ToList();
-            foreach (Models.Client a in Clients)
+            foreach (Models.Client c in Clients)
             {
-                final.Add(
-                    new Business.Client
-                    {
-                        LastName = a.LastName,
-                        FirstName = a.FirstName,
-                        Id = a.Id
-                    }
-                );
+                final.Add(ConvertToBuisness(c));
             }
             return final;
         }
@@ -41,5 +34,25 @@ namespace AirTech.Server.DAO
 
         //    return user;
         //}
+
+        public Business.Client ConvertToBuisness(Models.Client model)
+        {
+            return new Business.Client
+            {
+                LastName = model.LastName,
+                FirstName = model.FirstName,
+                Id = model.Id
+            };
+        }
+        
+        public Shared.Client ConvertToEndPoint(Business.Client model)
+        {
+            return new Shared.Client
+            {
+                LastName = model.LastName,
+                FirstName = model.FirstName,
+                Id = model.Id
+            };
+        }
     }
 }
