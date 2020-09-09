@@ -15,6 +15,7 @@ namespace AirTech.Business
         public int? Price { get; set; }
         public int Id { get; set; }
         public int? Stock { get; set; }
+        public int? LuggageStock { get; set; }
 
         public virtual Airport FromNavigation { get; set; }
         public virtual Airport ToNavigation { get; set; }

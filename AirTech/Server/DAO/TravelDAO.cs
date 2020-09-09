@@ -21,35 +21,36 @@ namespace AirTech.Server.DAO
         public IEnumerable<Business.Travel> GetTravels()
         {
             List<Business.Travel> final = new List<Business.Travel>();
-            List<Travel> travels = _databaseService.Travel.ToList();
-            foreach (Shared.Travel a in travels)
+            List<Shared.Travel> travels = _databaseService.Travel.ToList();
+            foreach (Shared.Travel t in travels)
             {
                 final.Add(
                 new Business.Travel
                 {
-                    From = a.From,
-                    To = a.To,
-                    Price = a.Price,
-                    Id = a.Id,
-                    Stock = a.Stock
+                    From = t.From,
+                    To = t.To,
+                    Price = t.Price,
+                    Id = t.Id,
+                    Stock = t.Stock,
+                    LuggageStock = t.LuggageStock
 
                 });
             }
-
             return final;
         }
 
         public Business.Travel GetTravelsById(int id)
         {
-            IQueryable<Travel> list = _databaseService.Travel.Where(t => t.Id == id);
-            Travel t = list.FirstOrDefault<Travel>();
+            IQueryable<Shared.Travel> list = _databaseService.Travel.Where(t => t.Id == id);
+            Shared.Travel t = list.FirstOrDefault<Shared.Travel>();
             return new Business.Travel
             {
                 From = t.From,
                 To = t.To,
                 Price = t.Price,
                 Id = t.Id,
-                Stock = t.Stock
+                Stock = t.Stock,
+                LuggageStock = t.LuggageStock
             };
         }
     }
