@@ -1,9 +1,6 @@
-﻿using System;
+﻿using AirTech.Shared;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
-using AirTech.Shared;
-
 
 namespace AirTech.Server.Service
 {
@@ -22,12 +19,12 @@ namespace AirTech.Server.Service
         private IConfiguration _configuration;
 
 
-        public virtual DbSet<Airport> Airport { get; set; }
-        public virtual DbSet<Billet> Billet { get; set; }
+        public virtual DbSet<Shared.Airport> Airport { get; set; }
+        public virtual DbSet<Shared.Billet> Billet { get; set; }
         public virtual DbSet<Shared.Client> Client { get; set; }
-        public virtual DbSet<Order> Order { get; set; }
-        public virtual DbSet<Travel> Travel { get; set; }
-        public virtual DbSet<Voyager> Voyager { get; set; }
+        public virtual DbSet<Shared.Order> Order { get; set; }
+        public virtual DbSet<Shared.Travel> Travel { get; set; }
+        public virtual DbSet<Shared.Voyager> Voyager { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

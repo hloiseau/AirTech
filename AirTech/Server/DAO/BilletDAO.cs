@@ -1,10 +1,8 @@
 ﻿using AirTech.Server.Service;
 using AirTech.Shared;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace AirTech.Server.DAO
 {
@@ -17,17 +15,33 @@ namespace AirTech.Server.DAO
             this._databaseService = context;
         }
 
-        public IEnumerable<Billet> GetBillets()
+        public IEnumerable<Business.Billet> GetBillets()
         {
-            return _databaseService.Billet;
-        }
-
-        public async Task<Billet> CreateBillet(Billet billet)
-        {
-            await _databaseService.Billet.AddAsync(billet);
-            //todo: update count
-            await _databaseService.SaveChangesAsync();
-            return billet;
+            List<Business.Billet> final = new List<Business.Billet>();
+            List<Billet> Billets = _databaseService.Billet.ToList();
+            foreach (Billet a in Billets)
+            {
+                final.Add(
+                    new Business.Billet
+                    {
+                        IdTravel = a.IdTravel,
+                        Id = a.Id,
+                        IdOrder = a.IdOrder,
+                        UnitPrice = a.UnitPrice,
+                        Date = a.Date,
+                        VoyagerId = a.VoyagerId,
+                    }
+                );
+            }
+            return final;
         }
     }
+
+        //public async Task<Billet> CreateBillet(Billet billet)
+        //{
+        //    await _databaseService.Billet.AddAsync(billet);
+        //    //todo: update count
+        //    await _databaseService.SaveChangesAsync();
+        //    return billet;
+        //}
 }
