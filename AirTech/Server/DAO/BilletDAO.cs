@@ -21,7 +21,7 @@ namespace AirTech.Server.DAO
             List<Models.Billet> Billets = _AirTechContext.Billet.ToList();
             foreach (Models.Billet b in Billets)
             {
-                final.Add(ConvertToEndPoint(ConvertToBuisness(b)));
+                final.Add(ConvertToEndPoint(ConvertToBusiness(b)));
             }
             return final;
         }
@@ -34,7 +34,7 @@ namespace AirTech.Server.DAO
         //    return billet;
         //}
 
-        private Business.Billet ConvertToBuisness(Models.Billet model)
+        private Business.Billet ConvertToBusiness(Models.Billet model)
         {
             return new Business.Billet
             {

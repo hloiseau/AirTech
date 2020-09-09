@@ -22,7 +22,7 @@ namespace AirTech.Server.DAO
             List<Models.Travel> travels = _AirTechContext.Travel.ToList();
             foreach (Models.Travel t in travels)
             {
-                final.Add(ConvertToEndPoint(ConvertToBuisness(t)));
+                final.Add(ConvertToEndPoint(ConvertToBusiness(t)));
             }
             return final;
         }
@@ -31,10 +31,10 @@ namespace AirTech.Server.DAO
         {
             IQueryable<Models.Travel> list = _AirTechContext.Travel.Where(t => t.Id == id);
             Models.Travel t = list.FirstOrDefault<Models.Travel>();
-            return ConvertToEndPoint(ConvertToBuisness(t));
+            return ConvertToEndPoint(ConvertToBusiness(t));
         }
 
-        private Business.Travel ConvertToBuisness(Models.Travel model)
+        private Business.Travel ConvertToBusiness(Models.Travel model)
         {
             return new Business.Travel
             {
