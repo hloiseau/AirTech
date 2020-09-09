@@ -1,19 +1,20 @@
 ﻿@inject HttpClient Http
 @inject NavigationManager Nav
 
+@page "/final"
 @page "/final/{OrderId}"
 <h3>Order</h3>
 
 @foreach (var billet in MyOrder.Billet)
 {
-<span>@billet.IdTravelNavigation.From - @billet.IdTravelNavigation.To</span>
-<span>
-    Date: @billet.Date, Price: @billet.UnitPrice
-</span>
-<span>
-    @billet.Voyager.FirstName
-    @billet.Voyager.LastName 
-</span>
+    <span>@billet.IdTravelNavigation.From - @billet.IdTravelNavigation.To</span>
+    <span>
+        Date: @billet.Date, Price: @billet.UnitPrice
+    </span>
+    <span>
+        @billet.Voyager.FirstName
+        @billet.Voyager.LastName
+    </span>
 }
 
 <label>Luggage</label>
