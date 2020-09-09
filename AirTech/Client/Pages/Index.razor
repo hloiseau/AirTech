@@ -29,7 +29,7 @@
     private Dictionary<AirTech.Shared.Travel, int> CountPerTravel { get; set; } = new Dictionary<AirTech.Shared.Travel, int>();
 
     private AirTech.Shared.Client Client { get; set; } = new AirTech.Shared.Client();
-    
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -49,8 +49,8 @@
             billets.Add(new AirTech.Shared.Billet { IdTravel = travel.Id, Date = DateTime.UtcNow, UnitPrice = travel.Price });
         }
         var response = await Http.PostAsJsonAsync<AirTech.Shared.Order>("Order", new AirTech.Shared.Order() { Billet = billets, Cilent = Client });
-        Console.WriteLine(await response.Content.ReadAsStringAsync());
-        Nav.NavigateTo($"/order/{await response.Content.ReadAsStringAsync()}");
+        var insertedOrder = await response.Content.ReadFromJsonAsync<AirTech.Shared.Order>();
+        Nav.NavigateTo($"/order/{insertedOrder.Id}");
     }
 
     private void AddBillet(ChangeEventArgs e, AirTech.Shared.Travel travel)

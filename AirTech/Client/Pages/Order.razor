@@ -34,13 +34,16 @@
 
     protected override async Task OnInitializedAsync()
     {
+        Console.WriteLine(await Http.GetFromJsonAsync<AirTech.Shared.Order>($"Order/{int.Parse(OrderId)}"));
         MyOrder = await Http.GetFromJsonAsync<AirTech.Shared.Order>($"Order/{int.Parse(OrderId)}");
+        Console.WriteLine(MyOrder);
     }
 
     private async Task Submit()
     {
-        var response = await Http.PostAsJsonAsync<AirTech.Shared.Order>("Order/update", MyOrder);
-        Nav.NavigateTo($"/final/{await response.Content.ReadAsStringAsync()}");
+        var response = await Http.PutAsJsonAsync<AirTech.Shared.Order>($"Order/{MyOrder.Id}", MyOrder);
+        var insertedOrder = await response.Content.ReadFromJsonAsync<AirTech.Shared.Order>();
+        Nav.NavigateTo($"/final/{MyOrder.Id}");
     }
 }
 
