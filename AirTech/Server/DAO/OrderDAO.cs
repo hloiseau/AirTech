@@ -41,9 +41,9 @@ namespace AirTech.Server.DAO
 
         public async Task<Shared.Order> CreateOrderAsync(Shared.Order order)
         {
+
             await _AirTechContext.Order.AddAsync(ConvertToDal(order));
             await _AirTechContext.SaveChangesAsync();
-
             List<Models.Order> orders = _AirTechContext.Order.Include(x => x.Cilent).Include(x => x.Billet).OrderByDescending(t => t.Id).ToList();
             Models.Order final = orders.FirstOrDefault<Models.Order>();
             return ConvertToEndPoint(final);

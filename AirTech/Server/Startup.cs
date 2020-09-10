@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.IO;
+using System.Net.Http;
 using System.Reflection;
 
 namespace AirTech.Server
@@ -53,6 +54,7 @@ namespace AirTech.Server
             services.AddTransient<BilletDAO>();
             services.AddTransient<OrderDAO>();
             services.AddTransient<VoyagerDAO>();
+            services.AddTransient<HttpClient>();
             services.AddSingleton<IntechAirFranceService>();
         }
 
