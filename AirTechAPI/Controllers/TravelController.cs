@@ -28,7 +28,9 @@ namespace AirTechAPI.Server.Controllers
         {
             try
             {
-                return await _dao.GetTravels();
+                var result = await _dao.GetTravels();
+                _logger.LogInformation(result.ToString());
+                return result;
             }
             catch (Exception e)
             {

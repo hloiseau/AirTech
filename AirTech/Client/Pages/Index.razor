@@ -2,25 +2,39 @@
 @inject NavigationManager Nav
 @page "/"
 
-<h1>Reservation</h1>
+<h1>Bienvenue chez AirTech !</h1>
 
-<input type="text" @bind="Client.FirstName" placeholder="FirstName"/>
-<input type="text" @bind="Client.LastName" placeholder="LastName"/>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <td scope="col">From</td>
+            <td scope="col">To</td>
+            <td scope="col">Price</td>
+            <td scope="col">Stock</td>
+            <td scope="col">Place voulue</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var travel in Travels)
+        {
+            <tr>
+                <td scope="row">@travel.From</td>
+                <td>@travel.To</td>
+                <td>@travel.Price €</td>
+                <td>@travel.Stock</td>
+                <td><input type="number" @onchange="@(e=> AddBillet(e, travel))" /></td>
+            </tr>
+        }
 
-<ul class="list-group">
-    @foreach (var travel in Travels)
-    {
-        <li class="list-group-item">
-            @travel.From - @travel.To : @travel.Price €
-            Number of places : @travel.Stock
+    </tbody>
+</table>
 
-            <input type="number" @onchange="@(e=> AddBillet(e, travel))" />
-        </li>
-
-    }
-
-</ul>
-<button @onclick="RedirectToOrder">Submit</button>
+<label>Prénom</label>
+<input class="form-control" type="text" @bind="Client.FirstName" placeholder="FirstName" />
+<label>Nom</label>
+<input class="form-control" type="text" @bind="Client.LastName" placeholder="LastName" />
+<br />
+<button class="btn btn-primary" @onclick="RedirectToOrder">Submit</button>
 
 @code{
 
@@ -44,7 +58,7 @@
     private async Task RedirectToOrder()
     {
         List<AirTech.Shared.Billet> billets = new List<AirTech.Shared.Billet>();
-        foreach((AirTech.Shared.Travel travel, int nb) in CountPerTravel)
+        foreach ((AirTech.Shared.Travel travel, int nb) in CountPerTravel)
         {
             for (int i = 0; i < nb; i++)
             {
@@ -58,7 +72,7 @@
 
     private void AddBillet(ChangeEventArgs e, AirTech.Shared.Travel travel)
     {
-        CountPerTravel.Add(travel, int.Parse( e.Value.ToString()));
+        CountPerTravel.Add(travel, int.Parse(e.Value.ToString()));
     }
 
 }

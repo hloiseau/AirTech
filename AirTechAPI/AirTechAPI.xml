@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AirTechAPI</name>
+    </assembly>
+    <members>
+        <member name="M:AirTechAPI.Server.Controllers.AirportController.GetAirportsAsync">
+            <summary>
+            Retruns a list of all Airports
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AirTechAPI.Server.Controllers.BilletController.GetTiketsAsync">
+            <summary>
+            Returns a list of all Tikets
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AirTechAPI.Server.Controllers.BilletController.GetTiketsById(System.Int32)">
+            <summary>
+            Returns a list of all Tikets
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AirTechAPI.Server.Controllers.BilletController.CreateBillet(AirTechAPI.Shared.Billet)">
+            <summary>
+            create a new Ticket and returns it
+            </summary>
+            <param name="billet"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AirTechAPI.Server.Controllers.OrderController.GetOrdersAsync">
+            <summary>
+            Returns a list of all Orders
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AirTechAPI.Server.Controllers.OrderController.GetOrderById(System.Int32)">
+            <summary>
+            Returns a list of all Orders
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AirTechAPI.Server.Controllers.TravelController.GetTravelsAsync">
+            <summary>
+            Returns a list of all Travels
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AirTechAPI.Server.Controllers.TravelController.GetTravelById(System.Int32)">
+            <summary>
+            Returns the Travel coresponding to the given Id
+            </summary>
+            <param name="id">whanted travel Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:AirTechAPI.Server.Controllers.VoyagerController.GetTravlersAsync">
+            <summary>
+            Returns a lsit of all Travlers
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AirTechAPI.Server.Controllers.VoyagerController.GetVoyagerById(System.Int32)">
+            <summary>
+            Returns the Travler coresponding to the given ID
+            </summary>
+            <param name="id">whanted travler ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:AirTechAPI.Server.UserController.GetAsync">
+            <summary>
+            Returns a lit of all Clients
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AirTechAPI.Server.UserController.GetUsersById(System.Int32)">
+            <summary>
+            Returns a Client coresponding to the given ID
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AirTechAPI.Server.UserController.AddUser(AirTechAPI.Shared.Client)">
+            <summary>
+            Creates a new Client and returns it.
+            </summary>
+            <param name="user">User to add</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
