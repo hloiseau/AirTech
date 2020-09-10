@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AirTech.Server.DAO
 {
@@ -14,7 +15,7 @@ namespace AirTech.Server.DAO
             this._airTechContext = context;
         }
 
-        public IEnumerable<Shared.Voyager> GetVoyager()
+        public IEnumerable<Shared.Voyager> GetVoyagers()
         {
             List<Shared.Voyager> final = new List<Shared.Voyager>();
             List<Voyager> voyagers = _airTechContext.Voyager.ToList();
@@ -38,13 +39,24 @@ namespace AirTech.Server.DAO
             return null;
         }
 
+        public async Task<Shared.Voyager> CreateVoyagerAsync(Shared.Voyager voyager)
+        {
+            await _airTechContext.Voyager.AddAsync(ConvertToDal(voyager));
+            await _airTechContext.SaveChangesAsync();
+
+            List<Models.Voyager> voyagers = _airTechContext.Voyager.OrderByDescending(t => t.Id).ToList();
+            Models.Voyager final = voyagers.FirstOrDefault<Models.Voyager>();
+            return ConvertToEndPoint(final);
+        }
+
         public static Business.Voyager ConvertToBusiness(Models.Voyager model)
         {
             return new Business.Voyager
             {
                 Id = model.Id,
                 LastName = model.LastName,
-                FirstName = model.FirstName
+                FirstName = model.FirstName,
+                Billet = BilletDAO.ConvertToEndPoint(model.Billet
             };
         }
 
@@ -54,7 +66,29 @@ namespace AirTech.Server.DAO
             {
                 Id = model.Id,
                 LastName = model.LastName,
-                FirstName = model.FirstName
+                FirstName = model.FirstName,
+                Billet = BilletDAO.ConvertToEndPoint(model.Billet)
+            };
+        }
+        public static Shared.Voyager ConvertToEndPoint(Models.Voyager model)
+        {
+            return new Shared.Voyager
+            {
+                Id = model.Id,
+                LastName = model.LastName,
+                FirstName = model.FirstName,
+                Billet = BilletDAO.ConvertToEndPoint(model.Billet)
+            };
+        }
+
+        public static Models.Voyager ConvertToDal(Shared.Voyager model)
+        {
+            return new Models.Voyager
+            {
+                Id = model.Id,
+                LastName = model.LastName,
+                FirstName = model.FirstName,
+                Billet = BilletDAO.ConvertToDal(model.Billet)
             };
         }
     }

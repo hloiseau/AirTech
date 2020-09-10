@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AirTech.Server.Controllers
 {
@@ -56,10 +57,10 @@ namespace AirTech.Server.Controllers
             }
         }
 
-        //[HttpPost]
-        //public async Task<Business.Voyager> Create()
-        //{
-
-        //}
+        [HttpPost]
+        public async Task<Shared.Voyager> AddVoyager([FromBody] Shared.Voyager voyager)
+        {
+            return await _dao.CreateVoyagerAsync(voyager);
+        }
     }
 }
