@@ -59,15 +59,21 @@ namespace AirTech.Server.DAO
 
         public static Business.Billet ConvertToBusiness(Models.Billet model)
         {
-            return new Business.Billet
+            var bil = new Business.Billet
             {
                 IdTravel = model.IdTravel,
+                IdTravelNavigation = TravelDAO.ConvertToBusiness(model.IdTravelNavigation),        
                 Id = model.Id,
                 IdOrder = model.IdOrder,
                 UnitPrice = model.UnitPrice,
                 Date = model.Date,
                 VoyagerId = model.VoyagerId
+
             };
+
+            if (model.Voyager != null)
+                bil.Voyager = VoyagerDAO.ConvertToBusiness( model.Voyager);
+            return bil;
         }
 
         public static ICollection<Business.Billet> ConvertToBusiness(ICollection<Models.Billet> models)
@@ -102,15 +108,20 @@ namespace AirTech.Server.DAO
 
         public static Shared.Billet ConvertToEndPoint(Business.Billet model)
         {
-            return new Shared.Billet
+            var bil = new Shared.Billet
             {
                 IdTravel = model.IdTravel,
+                IdTravelNavigation = TravelDAO.ConvertToEndPoint(model.IdTravelNavigation),
                 Id = model.Id,
                 IdOrder = model.IdOrder,
                 UnitPrice = model.UnitPrice,
                 Date = model.Date,
                 VoyagerId = model.VoyagerId
             };
+            if (model.Voyager != null)
+                bil.Voyager = VoyagerDAO.ConvertToEndPoint(model.Voyager);
+            return bil;
+
         }
 
         public static Shared.Billet ConvertToEndPoint(Models.Billet model)

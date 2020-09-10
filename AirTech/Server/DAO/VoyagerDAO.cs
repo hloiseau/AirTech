@@ -64,13 +64,15 @@ namespace AirTech.Server.DAO
 
         public static Business.Voyager ConvertToBusiness(Models.Voyager model)
         {
-            return new Business.Voyager
-            {
-                Id = model.Id,
-                LastName = model.LastName,
-                FirstName = model.FirstName,
-                Billet = BilletDAO.ConvertToBusiness(model.Billet)
-            };
+
+                return new Business.Voyager
+                {
+                    Id = model.Id,
+                    LastName = model.LastName,
+                    FirstName = model.FirstName,
+                    Billet = BilletDAO.ConvertToBusiness(model.Billet)
+                };
+            
         }
         public static Business.Voyager ConvertToBusiness(Models_IntechAirFrance.Voyager model)
         {
