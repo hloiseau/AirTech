@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirTech.Client", "AirTech\C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirTech.Shared", "AirTech\Shared\AirTech.Shared.csproj", "{EB8B4A2F-38DD-47C0-AF4B-31DA26126340}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirTechAPI", "AirTechAPI\AirTechAPI.csproj", "{2952FB3D-E0A8-44A9-9820-421A20CB276A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{EB8B4A2F-38DD-47C0-AF4B-31DA26126340}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB8B4A2F-38DD-47C0-AF4B-31DA26126340}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB8B4A2F-38DD-47C0-AF4B-31DA26126340}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2952FB3D-E0A8-44A9-9820-421A20CB276A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2952FB3D-E0A8-44A9-9820-421A20CB276A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2952FB3D-E0A8-44A9-9820-421A20CB276A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2952FB3D-E0A8-44A9-9820-421A20CB276A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

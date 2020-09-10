@@ -1,10 +1,10 @@
-﻿using AirTech.Server.Models_IntechAirFrance;
+﻿using AirTechAPI.Server.Models_IntechAirFrance;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 
-namespace AirTech.Server.Services
+namespace AirTechAPI.Server.Services
 {
     public class IntechAirFranceService
     {
