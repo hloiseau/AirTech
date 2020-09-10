@@ -51,7 +51,12 @@ namespace AirTech.Server.DAO
 
         internal Shared.Order GetOrderById(int id)
         {
-            IQueryable<Models.Order> list = _AirTechContext.Order.Include(x => x.Cilent).Include(x => x.Billet).Where(t => t.Id == id);
+            IQueryable<Order> list = _AirTechContext.Order.Include(x => x.Cilent)
+                .Include(x => x.Billet)
+                .ThenInclude(x => x.Voyager)
+                .Include(x => x.Billet)
+                .ThenInclude(x => x.IdTravelNavigation)
+                .Where(t => t.Id == id);
             Models.Order o = list.FirstOrDefault<Models.Order>();
             return ConvertToEndPoint(ConvertToBusiness(o));
         }

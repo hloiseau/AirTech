@@ -34,9 +34,12 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Console.WriteLine(await Http.GetFromJsonAsync<AirTech.Shared.Order>($"Order/{int.Parse(OrderId)}"));
         MyOrder = await Http.GetFromJsonAsync<AirTech.Shared.Order>($"Order/{int.Parse(OrderId)}");
-        Console.WriteLine(MyOrder);
+        foreach(var billet in MyOrder.Billet)
+        {
+            billet.Voyager = new AirTech.Shared.Voyager();
+        }
+        Console.WriteLine(MyOrder.Billet.Count);
     }
 
     private async Task Submit()

@@ -27,15 +27,23 @@ namespace AirTech.Server.DAO
         {
             List<Shared.Travel> final = new List<Shared.Travel>();
             List<Models.Travel> travels = await _AirTechContext.Travel.ToListAsync();
-            List<Models_IntechAirFrance.Travel> travels2 = await _intechAirFranceService.GetTravelsAsync();
+
+          
             foreach (Models.Travel t in travels)
             {
                 final.Add(ConvertToEndPoint(ConvertToBusiness(t)));
             }
-            foreach (Models_IntechAirFrance.Travel t in travels2)
+            try
             {
-                final.Add(ConvertToEndPoint(ConvertToBusiness(t)));
+                List<Models_IntechAirFrance.Travel> travels2 = await _intechAirFranceService.GetTravelsAsync();
+                foreach (Models_IntechAirFrance.Travel t in travels2)
+                {
+                    final.Add(ConvertToEndPoint(ConvertToBusiness(t)));
+                }
             }
+            catch { }
+            
+           
             return final;
         }
 
