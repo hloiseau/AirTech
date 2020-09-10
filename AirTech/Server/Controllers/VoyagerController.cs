@@ -29,7 +29,7 @@ namespace AirTech.Server.Controllers
         {
             try
             {
-                return _dao.GetVoyager();
+                return _dao.GetVoyagers();
             }
             catch (Exception e)
             {

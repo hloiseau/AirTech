@@ -56,7 +56,7 @@ namespace AirTech.Server.DAO
                 Id = model.Id,
                 LastName = model.LastName,
                 FirstName = model.FirstName,
-                Billet = BilletDAO.ConvertToEndPoint(model.Billet
+                Billet = BilletDAO.ConvertToBusiness(model.Billet)
             };
         }
 

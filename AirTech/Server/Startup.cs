@@ -37,6 +37,12 @@ namespace AirTech.Server
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 o.IncludeXmlComments(xmlPath);
             });
+
+            services.AddSignalR().AddAzureSignalR(options =>
+            {
+                options.ServerStickyMode =
+                    Microsoft.Azure.SignalR.ServerStickyMode.Required;
+            });
         }
 
         protected virtual void ConfigureAdditionalServices(IServiceCollection services)
