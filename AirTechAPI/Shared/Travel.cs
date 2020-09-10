@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using System.Collections.Generic;
 
 namespace AirTechAPI.Shared
 {
@@ -19,5 +20,10 @@ namespace AirTechAPI.Shared
         public virtual Airport FromNavigation { get; set; }
         public virtual Airport ToNavigation { get; set; }
         public virtual ICollection<Billet> Billet { get; set; }
+
+        public override string ToString()
+        {
+            return $"From {this.From} ; To {this.To} ; Price {this.Price} ; Id {this.Id} ; Stock {this.Stock} ; LuggageStock {this.LuggageStock} ; ";
+        }
     }
 }
