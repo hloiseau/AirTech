@@ -1,6 +1,7 @@
 using AirTech.Server.Controllers;
 using AirTech.Server.DAO;
 using AirTech.Server.Models;
+using AirTech.Server.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -53,6 +54,7 @@ namespace AirTech.Server
             services.AddTransient<BilletDAO>();
             services.AddTransient<OrderDAO>();
             services.AddTransient<VoyagerDAO>();
+            services.AddSingleton<IntechAirFranceService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -25,11 +25,11 @@ namespace AirTech.Server
         /// </summary>
         /// <returns></returns>
         [HttpGet(Name = "GetUsers")]
-        public IEnumerable<Shared.Client> Get()
+        public async Task<IEnumerable<Shared.Client>> GetAsync()
         {
             try
             {
-                return _dao.GetUsers();
+                return await _dao.GetUsers();
             }
             catch (Exception e)
             {

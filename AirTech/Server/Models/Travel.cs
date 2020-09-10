@@ -17,8 +17,8 @@ namespace AirTech.Server.Models
         public int? Stock { get; set; }
         public int? LuggageStock { get; set; }
 
-        public virtual Airport FromNavigation { get; set; }
-        public virtual Airport ToNavigation { get; set; }
+        public virtual Aeroport FromNavigation { get; set; }
+        public virtual Aeroport ToNavigation { get; set; }
         public virtual ICollection<Billet> Billet { get; set; }
     }
 }

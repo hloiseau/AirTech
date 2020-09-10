@@ -24,11 +24,11 @@ namespace AirTech.Server.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet(Name = "GetAirports")]
-        public IEnumerable<Shared.Airport> GetAirports()
+        public async System.Threading.Tasks.Task<IEnumerable<Shared.Airport>> GetAirportsAsync()
         {
             try
             {
-                return _dao.GetAirports();
+                return await _dao.GetAirports();
             }
             catch (Exception e)
             {

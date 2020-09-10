@@ -18,7 +18,7 @@ namespace AirTech.Server.Models
         }
 
         private IConfiguration _configuration;
-        public virtual DbSet<Airport> Airport { get; set; }
+        public virtual DbSet<Aeroport> Airport { get; set; }
         public virtual DbSet<Billet> Billet { get; set; }
         public virtual DbSet<Client> Client { get; set; }
         public virtual DbSet<Order> Order { get; set; }
@@ -35,7 +35,7 @@ namespace AirTech.Server.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Airport>(entity =>
+            modelBuilder.Entity<Aeroport>(entity =>
             {
                 entity.HasKey(e => e.Name);
 

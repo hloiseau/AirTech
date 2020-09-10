@@ -5,25 +5,36 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Security.Policy;
 using System;
+using AirTech.Server.Services;
 
 namespace AirTech.Server.DAO
 {
     public class ClientDAO
     {
         private AirTechContext _AirTechContext;
+        private IntechAirFranceService _intechAirFranceService;
 
-        public ClientDAO(AirTechContext context, ILogger<ClientDAO> logger)
+
+        public ClientDAO(AirTechContext context, ILogger<ClientDAO> logger, IntechAirFranceService intechAirFranceService)
         {
             this._AirTechContext = context;
+            _intechAirFranceService = intechAirFranceService;
+
         }
 
-        public IEnumerable<Shared.Client> GetUsers()
+        public async Task<IEnumerable<Shared.Client>> GetUsers()
         {
             List<Shared.Client> final = new List<Shared.Client>();
             List<Models.Client> Clients = _AirTechContext.Client.ToList();
+            List<Models_IntechAirFrance.Client> Clients2 = await _intechAirFranceService.GetClientsAsync();
+
             foreach (Models.Client c in Clients)
             {
                 final.Add(ConvertToEndPoint(ConvertToBusiness(c)));
+            }
+            foreach (var a in Clients2)
+            {
+                final.Add(ConvertToEndPoint(ConvertToBusiness(a)));
             }
             return final;
         }
@@ -52,6 +63,14 @@ namespace AirTech.Server.DAO
                 LastName = model.LastName,
                 FirstName = model.FirstName,
                 Id = model.Id
+            };
+        }
+        public static Business.Client ConvertToBusiness(Models_IntechAirFrance.Client model)
+        {
+            return new Business.Client
+            {
+                LastName = model.nomClient,
+                FirstName = model.prenomClient,
             };
         }
 

@@ -25,11 +25,11 @@ namespace AirTech.Server.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet(Name = "GetTravlers")]
-        public IEnumerable<Shared.Voyager> GetTravlers()
+        public async Task<IEnumerable<Shared.Voyager>> GetTravlersAsync()
         {
             try
             {
-                return _dao.GetVoyagers();
+                return await _dao.GetVoyagers();
             }
             catch (Exception e)
             {

@@ -24,11 +24,11 @@ namespace AirTech.Server.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet(Name = "GetTravels")]
-        public IEnumerable<Shared.Travel> GetTravels()
+        public async System.Threading.Tasks.Task<IEnumerable<Shared.Travel>> GetTravelsAsync()
         {
             try
             {
-                return _dao.GetTravels();
+                return await _dao.GetTravels();
             }
             catch (Exception e)
             {

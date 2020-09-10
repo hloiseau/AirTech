@@ -1,4 +1,6 @@
 ﻿using AirTech.Server.Models;
+using AirTech.Server.Services;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,17 +11,28 @@ namespace AirTech.Server.DAO
     public class VoyagerDAO
     {
         private AirTechContext _airTechContext;
+        private IntechAirFranceService _intechAirFranceService;
 
-        public VoyagerDAO(AirTechContext context, ILogger<VoyagerDAO> logger)
+
+        public VoyagerDAO(AirTechContext context, ILogger<VoyagerDAO> logger, IntechAirFranceService intechAirFranceService)
         {
             this._airTechContext = context;
+            _intechAirFranceService = intechAirFranceService;
+
         }
 
-        public IEnumerable<Shared.Voyager> GetVoyagers()
+        public async Task<IEnumerable<Shared.Voyager>> GetVoyagers()
         {
             List<Shared.Voyager> final = new List<Shared.Voyager>();
-            List<Voyager> voyagers = _airTechContext.Voyager.ToList();
-            foreach(Voyager v in voyagers)
+            List<Voyager> voyagers = await  _airTechContext.Voyager.ToListAsync();
+            List<Models_IntechAirFrance.Voyager> voyagers2 = await _intechAirFranceService.GetVoyagersAsync();
+
+            foreach (Voyager v in voyagers)
+            {
+                final.Add(ConvertToEndPoint(ConvertToBusiness(v)));
+            };
+
+            foreach (var v in voyagers2)
             {
                 final.Add(ConvertToEndPoint(ConvertToBusiness(v)));
             };
@@ -57,6 +70,14 @@ namespace AirTech.Server.DAO
                 LastName = model.LastName,
                 FirstName = model.FirstName,
                 Billet = BilletDAO.ConvertToBusiness(model.Billet)
+            };
+        }
+        public static Business.Voyager ConvertToBusiness(Models_IntechAirFrance.Voyager model)
+        {
+            return new Business.Voyager
+            {
+                LastName = model.nomPassager,
+                FirstName = model.prenomPassager,
             };
         }
 

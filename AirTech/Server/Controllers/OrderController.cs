@@ -25,11 +25,11 @@ namespace AirTech.Server.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet(Name = "GetOrders")]
-        public IEnumerable<Shared.Order> GetOrders()
+        public async Task<IEnumerable<Shared.Order>> GetOrdersAsync()
         {
             try
             {
-                return _dao.GetOrders();
+                return await _dao.GetOrders();
             }
             catch (Exception e)
             {

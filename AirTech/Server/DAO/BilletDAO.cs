@@ -1,5 +1,7 @@
 ﻿
 using AirTech.Server.Models;
+using AirTech.Server.Services;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -11,17 +13,27 @@ namespace AirTech.Server.DAO
     public class BilletDAO
     {
         private AirTechContext _AirTechContext;
+        private IntechAirFranceService _intechAirFranceService;
 
-        public BilletDAO(AirTechContext context, ILogger<BilletDAO> logger)
+
+        public BilletDAO(AirTechContext context, ILogger<BilletDAO> logger, IntechAirFranceService intechAirFranceService)
         {
             this._AirTechContext = context;
+            _intechAirFranceService = intechAirFranceService;
+
         }
 
-        public IEnumerable<Shared.Billet> GetBillets()
+        public async Task<IEnumerable<Shared.Billet>> GetBillets()
         {
             List<Shared.Billet> final = new List<Shared.Billet>();
-            List<Models.Billet> Billets = _AirTechContext.Billet.ToList();
+            List<Models.Billet> Billets = await _AirTechContext.Billet.ToListAsync();
+            List<Models_IntechAirFrance.Billet> Billets2 = await _intechAirFranceService.GetBilletsAsync();
+
             foreach (Models.Billet b in Billets)
+            {
+                final.Add(ConvertToEndPoint(ConvertToBusiness(b)));
+            }
+            foreach (var b in Billets2)
             {
                 final.Add(ConvertToEndPoint(ConvertToBusiness(b)));
             }
@@ -62,6 +74,26 @@ namespace AirTech.Server.DAO
         {
             ICollection<Business.Billet> final = new List<Business.Billet>();
             foreach (Models.Billet b in models)
+            {
+                final.Add(ConvertToBusiness(b));
+            }
+            return final;
+        }
+        public static Business.Billet ConvertToBusiness(Models_IntechAirFrance.Billet model)
+        {
+            return new Business.Billet
+            {
+                IdTravel = model.idVol,
+                IdOrder = model.idCommande,
+                Date = model.dateDepart,
+                VoyagerId = model.idPassager
+            };
+        }
+
+        public static ICollection<Business.Billet> ConvertToBusiness(ICollection<Models_IntechAirFrance.Billet> models)
+        {
+            ICollection<Business.Billet> final = new List<Business.Billet>();
+            foreach (Models_IntechAirFrance.Billet b in models)
             {
                 final.Add(ConvertToBusiness(b));
             }

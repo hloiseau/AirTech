@@ -1,4 +1,5 @@
 ﻿using AirTech.Server.Models;
+using AirTech.Server.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,17 +13,26 @@ namespace AirTech.Server.DAO
     public class OrderDAO
     {
         private AirTechContext _AirTechContext;
+        private IntechAirFranceService _intechAirFranceService;
 
-        public OrderDAO(AirTechContext context, ILogger<OrderDAO> logger)
+
+        public OrderDAO(AirTechContext context, ILogger<OrderDAO> logger, IntechAirFranceService intechAirFranceService)
         {
             this._AirTechContext = context;
+            _intechAirFranceService = intechAirFranceService;
         }
 
-        public IEnumerable<Shared.Order> GetOrders()
+        public async Task<IEnumerable<Shared.Order>> GetOrders()
         {
             List<Shared.Order> final = new List<Shared.Order>();
             List<Order> Orders = _AirTechContext.Order.Include(x => x.Cilent).Include(x => x.Billet).ToList();
+            List<Models_IntechAirFrance.Order> Orders2 = await _intechAirFranceService.GetOrdersAsync();
+
             foreach (Order o in Orders)
+            {
+                final.Add(ConvertToEndPoint(ConvertToBusiness(o)));
+            }
+            foreach (var o in Orders2)
             {
                 final.Add(ConvertToEndPoint(ConvertToBusiness(o)));
             }
@@ -66,6 +76,14 @@ namespace AirTech.Server.DAO
                 CilentId = model.CilentId,
                 Cilent = ClientDAO.ConvertToBusiness(model.Cilent),
                 Billet = BilletDAO.ConvertToBusiness(model.Billet)
+            };
+        }
+
+        public static Business.Order ConvertToBusiness(Models_IntechAirFrance.Order model)
+        {
+            return new Business.Order
+            {
+                CilentId = model.noClient
             };
         }
 

@@ -4,13 +4,13 @@
         <name>AirTech.Server</name>
     </assembly>
     <members>
-        <member name="M:AirTech.Server.Controllers.AirportController.GetAirports">
+        <member name="M:AirTech.Server.Controllers.AirportController.GetAirportsAsync">
             <summary>
             Retruns a list of all Airports
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AirTech.Server.Controllers.BilletController.GetTikets">
+        <member name="M:AirTech.Server.Controllers.BilletController.GetTiketsAsync">
             <summary>
             Returns a list of all Tikets
             </summary>
@@ -29,7 +29,7 @@
             <param name="billet"></param>
             <returns></returns>
         </member>
-        <member name="M:AirTech.Server.Controllers.OrderController.GetOrders">
+        <member name="M:AirTech.Server.Controllers.OrderController.GetOrdersAsync">
             <summary>
             Returns a list of all Orders
             </summary>
@@ -41,7 +41,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AirTech.Server.Controllers.TravelController.GetTravels">
+        <member name="M:AirTech.Server.Controllers.TravelController.GetTravelsAsync">
             <summary>
             Returns a list of all Travels
             </summary>
@@ -54,7 +54,7 @@
             <param name="id">whanted travel Id</param>
             <returns></returns>
         </member>
-        <member name="M:AirTech.Server.Controllers.VoyagerController.GetTravlers">
+        <member name="M:AirTech.Server.Controllers.VoyagerController.GetTravlersAsync">
             <summary>
             Returns a lsit of all Travlers
             </summary>
@@ -67,7 +67,7 @@
             <param name="id">whanted travler ID</param>
             <returns></returns>
         </member>
-        <member name="M:AirTech.Server.UserController.Get">
+        <member name="M:AirTech.Server.UserController.GetAsync">
             <summary>
             Returns a lit of all Clients
             </summary>

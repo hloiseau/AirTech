@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace AirTech.Server.Models
 {
-    public partial class Airport
+    public partial class Aeroport
     {
-        public Airport()
+        public Aeroport()
         {
             TravelFromNavigation = new HashSet<Travel>();
             TravelToNavigation = new HashSet<Travel>();
