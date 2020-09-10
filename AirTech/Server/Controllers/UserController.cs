@@ -1,6 +1,7 @@
 ﻿using AirTech.Server.DAO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -26,7 +27,15 @@ namespace AirTech.Server
         [HttpGet(Name = "GetUsers")]
         public IEnumerable<Shared.Client> Get()
         {
-            return _dao.GetUsers();
+            try
+            {
+                return _dao.GetUsers();
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e.ToString());
+                return null;
+            }
         }
 
         /// <summary>
@@ -36,7 +45,15 @@ namespace AirTech.Server
         [HttpGet("{id}", Name = "GetUsersById")]
         public Shared.Client GetUsersById(int id)
         {
-            return _dao.GetUsersById(id);
+            try
+            {
+                return _dao.GetUsersById(id);
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e.ToString());
+                return null;
+            }
         }
 
         /// <summary>
@@ -47,7 +64,15 @@ namespace AirTech.Server
         [HttpPost(Name = "AddUser")]
         public async Task<Shared.Client> AddUser([FromBody] Shared.Client user)
         {
-            return await _dao.CreateUser(user);
+            try
+            {
+                return await _dao.CreateUser(user);
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e.ToString());
+                return null;
+            }
         }
     }
 }

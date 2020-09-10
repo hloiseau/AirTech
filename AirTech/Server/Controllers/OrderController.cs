@@ -1,6 +1,7 @@
 ﻿using AirTech.Server.DAO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -26,7 +27,15 @@ namespace AirTech.Server.Controllers
         [HttpGet(Name = "GetOrders")]
         public IEnumerable<Shared.Order> GetOrders()
         {
-            return _dao.GetOrders();
+            try
+            {
+                return _dao.GetOrders();
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e.ToString());
+                return null;
+            }
         }
 
         /// <summary>
@@ -36,19 +45,43 @@ namespace AirTech.Server.Controllers
         [HttpGet("{id}", Name = "GetOrderById")]
         public Shared.Order GetOrderById(int id)
         {
-            return _dao.GetOrderById(id);
+            try
+            {
+                return _dao.GetOrderById(id);
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e.ToString());
+                return null;
+            }
         }
 
         [HttpPost(Name = "AddOrder")]
         public async Task<Shared.Order> AddOrder([FromBody] Shared.Order order)
         {
-            return await _dao.CreateOrderAsync(order);
+            try
+            {
+                return await _dao.CreateOrderAsync(order);
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e.ToString());
+                return null;
+            }
         }
 
         [HttpPut("{id}", Name = "UpdateOrderById")]
         public async Task<Shared.Order> UpdateOrderById(int id, [FromBody] Shared.Order order)
         {
-            return await _dao.UpdateOrderByIdAsync(id, order);
+            try
+            {
+                return await _dao.UpdateOrderByIdAsync(id, order);
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e.ToString());
+                return null;
+            }
         }
     }
 }

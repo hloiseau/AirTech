@@ -1,6 +1,7 @@
 ﻿using AirTech.Server.DAO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -26,7 +27,15 @@ namespace AirTech.Server.Controllers
         [HttpGet(Name = "GetTikets")]
         public IEnumerable<Shared.Billet> GetTikets()
         {
-            return _dao.GetBillets();
+            try
+            {
+                return _dao.GetBillets();
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e.ToString());
+                return null;
+            }
         }
 
         /// <summary>
@@ -36,7 +45,15 @@ namespace AirTech.Server.Controllers
         [HttpGet("{id}", Name = "GetTiketsById")]
         public Shared.Billet GetTiketsById(int id)
         {
-            return _dao.GetBilletsById(id);
+            try
+            {
+                return _dao.GetBilletsById(id);
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e.ToString());
+                return null;
+            }
         }
 
         /// <summary>
@@ -44,10 +61,18 @@ namespace AirTech.Server.Controllers
         /// </summary>
         /// <param name="billet"></param>
         /// <returns></returns>
-        [HttpPost(Name= "CreateBillet")]
+        [HttpPost(Name = "CreateBillet")]
         public async Task<Shared.Billet> CreateBillet(Shared.Billet billet)
         {
-            return await _dao.CreateBillet(billet);
+            try
+            {
+                return await _dao.CreateBillet(billet);
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e.ToString());
+                return null;
+            }
         }
     }
 }

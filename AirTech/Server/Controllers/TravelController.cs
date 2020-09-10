@@ -1,6 +1,7 @@
 ﻿using AirTech.Server.DAO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 
 namespace AirTech.Server.Controllers
@@ -25,7 +26,15 @@ namespace AirTech.Server.Controllers
         [HttpGet(Name = "GetTravels")]
         public IEnumerable<Shared.Travel> GetTravels()
         {
-            return _dao.GetTravels();
+            try
+            {
+                return _dao.GetTravels();
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e.ToString());
+                return null;
+            }
         }
 
         /// <summary>
@@ -36,7 +45,15 @@ namespace AirTech.Server.Controllers
         [HttpGet("{id}", Name = "GetTravelById")]
         public Shared.Travel GetTravelById(int id)
         {
-            return _dao.GetTravelsById(id);
+            try
+            {
+                return _dao.GetTravelsById(id);
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e.ToString());
+                return null;
+            }
         }
     }
 }

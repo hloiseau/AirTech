@@ -1,6 +1,7 @@
 ﻿using AirTech.Server.DAO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 
 namespace AirTech.Server.Controllers
@@ -15,7 +16,7 @@ namespace AirTech.Server.Controllers
         public VoyagerController(VoyagerDAO context, ILogger<VoyagerController> logger)
         {
             this._logger = logger;
-            this ._dao = context;
+            this._dao = context;
         }
 
         /// <summary>
@@ -25,7 +26,15 @@ namespace AirTech.Server.Controllers
         [HttpGet(Name = "GetTravlers")]
         public IEnumerable<Shared.Voyager> GetTravlers()
         {
-            return _dao.GetVoyager();
+            try
+            {
+                return _dao.GetVoyager();
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e.ToString());
+                return null;
+            }
         }
 
         /// <summary>
@@ -36,7 +45,15 @@ namespace AirTech.Server.Controllers
         [HttpGet("{id}", Name = "GetTravlersById")]
         public Shared.Voyager GetVoyagerById(int id)
         {
-            return _dao.GetVoyagerById(id);
+            try
+            {
+                return _dao.GetVoyagerById(id);
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e.ToString());
+                return null;
+            }
         }
 
         //[HttpPost]

@@ -1,6 +1,7 @@
 ﻿using AirTech.Server.DAO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 
 namespace AirTech.Server.Controllers
@@ -25,7 +26,15 @@ namespace AirTech.Server.Controllers
         [HttpGet(Name = "GetAirports")]
         public IEnumerable<Shared.Airport> GetAirports()
         {
-            return _dao.GetAirports();
+            try
+            {
+                return _dao.GetAirports();
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e.ToString());
+                return null;
+            }
         }
     }
 }
