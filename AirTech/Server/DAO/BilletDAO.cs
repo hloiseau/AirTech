@@ -128,7 +128,7 @@ namespace AirTech.Server.DAO
 
         public static Shared.Billet ConvertToEndPoint(Models.Billet model)
         {
-            return new Shared.Billet
+            var b = new Shared.Billet
             {
                 IdTravel = model.IdTravel,
                 Id = model.Id,
@@ -138,6 +138,13 @@ namespace AirTech.Server.DAO
                 VoyagerId = model.VoyagerId,
                 Voyager = VoyagerDAO.ConvertToEndPoint(model.Voyager)
             };
+
+            if (model.Voyager != null)
+            {
+                b.Voyager = VoyagerDAO.ConvertToEndPoint(model.Voyager);
+            }
+            return b;
+
         }
 
         public static ICollection<Shared.Billet> ConvertToEndPoint(ICollection<Business.Billet> models)
@@ -162,7 +169,7 @@ namespace AirTech.Server.DAO
 
         public static Models.Billet ConvertToDal(Shared.Billet model)
         {
-            return new Models.Billet
+            var b = new Models.Billet
             {
                 IdTravel = model.IdTravel,
                 Id = model.Id,
@@ -171,11 +178,16 @@ namespace AirTech.Server.DAO
                 Date = model.Date,
                 VoyagerId = model.VoyagerId
             };
+            if(model.Voyager != null)
+            {
+                b.Voyager = VoyagerDAO.ConvertToDal(model.Voyager);
+            }
+            return b;
         }
 
         public static Models.Billet ConvertToDal(Business.Billet model)
         {
-            return new Models.Billet
+            var b = new Models.Billet
             {
                 IdTravel = model.IdTravel,
                 Id = model.Id,
@@ -184,6 +196,11 @@ namespace AirTech.Server.DAO
                 Date = model.Date,
                 VoyagerId = model.VoyagerId
             };
+            //if (model.Voyager != null)
+            //{
+            //    b.Voyager = VoyagerDAO.ConvertToDal(model.Voyager);
+            //}
+            return b;
         }
 
         public static ICollection<Models.Billet> ConvertToDal(ICollection<Shared.Billet> models)
