@@ -5,22 +5,44 @@
 @page "/order/{OrderId}"
 <h3>Order</h3>
 
-@foreach (var billet in MyOrder.Billet)
-{
-    <span>@billet.IdTravelNavigation.From - @billet.IdTravelNavigation.To</span>
-    <span>
-        Date: @billet.Date, Price: @billet.UnitPrice
-    </span>
-    <span>
-        <input type="text" @bind="billet.Voyager.FirstName" placeholder="First Name" />
-        <input type="text" @bind="billet.Voyager.LastName" placeholder="Last Name" />
-    </span>
-}
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <td scope="col">From</td>
+            <td scope="col">To</td>
+            <td scope="col">Date</td>
+            <td scope="col">Prix unitaire</td>
+            <td scope="col">Nom du voyageur</td>
+            <td scope="col">Prénom du voyageur</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var billet in MyOrder.Billet)
+        {
+            <tr>
+                <td scope="row">@billet.IdTravelNavigation.From</td>
+                <td>@billet.IdTravelNavigation.To</td>
+                <td>@billet.Date</td>
+                <td>@billet.UnitPrice €</td>
+                <td><input type="text" @bind="billet.Voyager.FirstName" placeholder="First Name" /></td>
+                <td><input type="text" @bind="billet.Voyager.LastName" placeholder="Last Name" /></td>
+            </tr>
+        }
 
-<label>Luggage</label>
-<input type="number" @bind="MyOrder.Luggage" />
+    </tbody>
+</table>
+<form>
+    <label>Nombre de bagages</label>
+    <input type="number" min="0" max="3" @bind="MyOrder.Luggage" />
+    <br />
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" @bind="MyOrder.CarLocation" />
+        <label class="form-check-label">Louer une voiture à l'aéroport ?</label>
+        <br />
+    </div>
+</form>
 
-<button>
+<button class="btn btn-primary" @onclick="Submit">
     Submit
 </button>
 
@@ -35,7 +57,7 @@
     protected override async Task OnInitializedAsync()
     {
         MyOrder = await Http.GetFromJsonAsync<AirTech.Shared.Order>($"Order/{int.Parse(OrderId)}");
-        foreach(var billet in MyOrder.Billet)
+        foreach (var billet in MyOrder.Billet)
         {
             billet.Voyager = new AirTech.Shared.Voyager();
         }
@@ -44,8 +66,8 @@
 
     private async Task Submit()
     {
-        var response = await Http.PutAsJsonAsync<AirTech.Shared.Order>($"Order/{MyOrder.Id}", MyOrder);
-        var insertedOrder = await response.Content.ReadFromJsonAsync<AirTech.Shared.Order>();
+        //var response = await Http.PutAsJsonAsync<AirTech.Shared.Order>($"Order/{MyOrder.Id}", MyOrder);
+        //var insertedOrder = await response.Content.ReadFromJsonAsync<AirTech.Shared.Order>();
         Nav.NavigateTo($"/final/{MyOrder.Id}");
     }
 }
