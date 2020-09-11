@@ -1,17 +1,85 @@
-﻿@page "/billet-list"
+﻿@inject HttpClient Http
+@page "/billet-list"
 
-<h1>List of Billet</h1>
+<h1>Liste des billets</h1>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <td scope="col">Lastname</td>
+            <td scope="col">Firstname</td>
+            <td scope="col">From</td>
+            <td scope="col">To</td>
+            <td scope="col">Price</td>
+            <td scope="col">Luggage</td>
+            <td scope="col">Car location ?</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var billet in Billets)
+        {
+            <tr>
+                if (@billet.Voyager == null)
+                {
+                    <td colspan="2">Unknow</td>
+                }
+
+                else
+                {
+                    <td>@billet.Voyager.LastName</td>
+                    <td>@billet.Voyager.FirstName</td>
+                }
+
+                if (@billet.IdTravelNavigation == null)
+                {
+                <td>No travel</td>
+                }
+                else
+                {
+                <td>@billet.IdTravelNavigation.From</td>
+                <td>@billet.IdTravelNavigation.To</td>
+                <td>@billet.IdTravelNavigation.Price €</td>
+                }
+                <td>2</td>
+                <td>Yes</td>
+            </tr>
+        }
+
+    </tbody>
+</table>
 
 @foreach (var billet in Billets)
 {
-    <span>@billet.Voyager.FirstName @billet.Voyager.LastName</span>
-   <span class="list-group-item">
-        @billet.IdTravelNavigation.From - @billet.IdTravelNavigation.To : @billet.IdTravelNavigation.Price €
-        <br />
-   </span>
+    if(@billet.Voyager == null)
+    {
+        <span>Pas d'info</span>
+    }
+    else
+    {
+        <span>@billet.Voyager.FirstName @billet.Voyager.LastName</span>
+    }
+
+    if(@billet.IdTravelNavigation == null)
+    {
+        <span>Nope</span>
+    }
+    else
+    {
+        <span class="list-group-item">
+            @billet.IdTravelNavigation.From - @billet.IdTravelNavigation.To : @billet.IdTravelNavigation.Price €
+            <br />
+        </span>
+
+    }
 }
 
 @code {
-    [Parameter]
+
     public List<AirTech.Shared.Billet> Billets { get; set; } = new List<AirTech.Shared.Billet>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Billets = await Http.GetFromJsonAsync<List<AirTech.Shared.Billet>>("Billet");
+        Console.WriteLine(Billets.Count);
+    }
 }

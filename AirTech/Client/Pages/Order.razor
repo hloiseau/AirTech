@@ -11,33 +11,33 @@
             <td scope="col">From</td>
             <td scope="col">To</td>
             <td scope="col">Date</td>
-            <td scope="col">Prix unitaire</td>
-            <td scope="col">Nom du voyageur</td>
-            <td scope="col">Prénom du voyageur</td>
+            <td scope="col">Unit price</td>
+            <td scope="col">Traveler's Lastname</td>
+            <td scope="col">Traveler's Firstname </td>
         </tr>
     </thead>
     <tbody>
         @foreach (var billet in MyOrder.Billet)
         {
-            <tr>
-                <td scope="row">@billet.IdTravelNavigation.From</td>
-                <td>@billet.IdTravelNavigation.To</td>
-                <td>@billet.Date</td>
-                <td>@billet.UnitPrice €</td>
-                <td><input type="text" @bind="billet.Voyager.FirstName" placeholder="First Name" /></td>
-                <td><input type="text" @bind="billet.Voyager.LastName" placeholder="Last Name" /></td>
-            </tr>
+        <tr>
+            <td scope="row">@billet.IdTravelNavigation.From</td>
+            <td>@billet.IdTravelNavigation.To</td>
+            <td>@billet.Date</td>
+            <td>@billet.UnitPrice €</td>
+            <td><input type="text" @bind="billet.Voyager.LastName" placeholder="Last Name" /></td>
+            <td><input type="text" @bind="billet.Voyager.FirstName" placeholder="First Name" /></td>
+        </tr>
         }
 
     </tbody>
 </table>
 <form>
-    <label>Nombre de bagages</label>
+    <label>Number of Luggage ?</label>
     <input type="number" min="0" max="3" @bind="MyOrder.Luggage" />
     <br />
     <div class="form-check">
         <input type="checkbox" class="form-check-input" @bind="MyOrder.CarLocation" />
-        <label class="form-check-label">Louer une voiture à l'aéroport ?</label>
+        <label class="form-check-label">Do you want a car when you arrive ?</label>
         <br />
     </div>
 </form>

@@ -3,26 +3,48 @@
 
 @page "/final"
 @page "/final/{OrderId}"
-<h3>Order</h3>
+<h3>Récapitulatif de la commande</h3>
 
-@foreach (var billet in MyOrder.Billet)
-{
-    <span>@billet.IdTravelNavigation.From - @billet.IdTravelNavigation.To</span>
-    <span>
-        Date: @billet.Date, Price: @billet.UnitPrice
-    </span>
-    <span>
-        @billet.Voyager.FirstName
-        @billet.Voyager.LastName
-    </span>
-}
+<p>Vous avez décidez pour votre voyage :</p>
+<ul>
+    <li>de venir avec (num valise) valise(s)</li>
+    <li>De (louer/ne pas louer) une voiture vous attendant à l'aéroport</li>
+</ul>
+<p>Air'Tech vous souhaite remercie de votre achat ! Reposez-vous d'ici votre vol !</p>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <td scope="col">From</td>
+            <td scope="col">To</td>
+            <td scope="col">Date</td>
+            <td scope="col">Unit price</td>
+            <td scope="col">Traveler's Lastname </td>
+            <td scope="col">Traveler's Firstname</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var billet in MyOrder.Billet)
+        {
+            <tr>
+                <td scope="row">@billet.IdTravelNavigation.From</td>
+                <td>@billet.IdTravelNavigation.To</td>
+                <td>@billet.Date</td>
+                <td>@billet.UnitPrice €</td>
+                <td>@billet.Voyager.LastName</td>
+                <td>@billet.Voyager.FirstName</td>
+            </tr>
+        }
+        <tr>
+            <td colspan="5"><b>Nombre de bagages</b></td>
+            <td colspan="1">@MyOrder.Luggage</td>
+        </tr>
+        <tr>
+            <td colspan="5"><b>Total</b></td>
+            <td colspan="1">@MyOrder.TotalAmount</td>
+        </tr>
 
-<label>Luggage</label>
-@MyOrder.Luggage
-
-<label>Price</label>
-@MyOrder.TotalAmount
-
+    </tbody>
+</table>
 
 @code {
 
