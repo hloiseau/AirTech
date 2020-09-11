@@ -27,7 +27,6 @@ namespace AirTech.Server.DAO
         {
             List<Shared.Travel> final = new List<Shared.Travel>();
             List<Models.Travel> travels = await _AirTechContext.Travel.ToListAsync();
-
           
             foreach (Models.Travel t in travels)
             {

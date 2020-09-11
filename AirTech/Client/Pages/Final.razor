@@ -56,6 +56,8 @@
     protected override async Task OnInitializedAsync()
     {
         MyOrder = await Http.GetFromJsonAsync<AirTech.Shared.Order>($"Order/{int.Parse(OrderId)}");
+        Console.WriteLine(OrderId);
+        Console.WriteLine(MyOrder.Billet.ToList()[0].Voyager.FirstName);
     }
 
 }

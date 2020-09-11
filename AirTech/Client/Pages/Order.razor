@@ -66,8 +66,7 @@
 
     private async Task Submit()
     {
-        //var response = await Http.PutAsJsonAsync<AirTech.Shared.Order>($"Order/{MyOrder.Id}", MyOrder);
-        //var insertedOrder = await response.Content.ReadFromJsonAsync<AirTech.Shared.Order>();
+        var response = await Http.PutAsJsonAsync<AirTech.Shared.Order>($"Order/{MyOrder.Id}", MyOrder);
         Nav.NavigateTo($"/final/{MyOrder.Id}");
     }
 }

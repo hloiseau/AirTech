@@ -26,17 +26,22 @@ namespace AirTech.Server.DAO
         public async Task<IEnumerable<Shared.Billet>> GetBillets()
         {
             List<Shared.Billet> final = new List<Shared.Billet>();
-            List<Models.Billet> Billets = await _AirTechContext.Billet.ToListAsync();
-            //List<Models_IntechAirFrance.Billet> Billets2 = await _intechAirFranceService.GetBilletsAsync();
+            List<Models.Billet> Billets = await _AirTechContext.Billet.Include(x=> x.Voyager).ToListAsync();
 
             foreach (Models.Billet b in Billets)
             {
                 final.Add(ConvertToEndPoint(ConvertToBusiness(b)));
             }
-            //foreach (var b in Billets2)
-            //{
-            //    final.Add(ConvertToEndPoint(ConvertToBusiness(b)));
-            //}
+            try
+            {
+                List<Models_IntechAirFrance.Billet> Billet2 = await _intechAirFranceService.GetBilletsAsync();
+                foreach (Models_IntechAirFrance.Billet b in Billet2)
+                {
+                    final.Add(ConvertToEndPoint(ConvertToBusiness(b)));
+                }
+            }
+            catch { }
+
             return final;
         }
 
@@ -116,14 +121,14 @@ namespace AirTech.Server.DAO
                 VoyagerId = model.VoyagerId,
             };
             if (model.Voyager != null)
-                bil.Voyager = VoyagerDAO.ConvertToEndPoint(model.Voyager);
+                bil.Voyager = VoyagerDAO.ConvertToEndPoint(model.Voyager, false);
             return bil;
 
         }
 
         public static Shared.Billet ConvertToEndPoint(Models.Billet model)
         {
-            return new Shared.Billet
+            var b = new Shared.Billet
             {
                 IdTravel = model.IdTravel,
                 Id = model.Id,
@@ -133,6 +138,13 @@ namespace AirTech.Server.DAO
                 VoyagerId = model.VoyagerId,
                 Voyager = VoyagerDAO.ConvertToEndPoint(model.Voyager)
             };
+
+            if (model.Voyager != null)
+            {
+                b.Voyager = VoyagerDAO.ConvertToEndPoint(model.Voyager);
+            }
+            return b;
+
         }
 
         public static ICollection<Shared.Billet> ConvertToEndPoint(ICollection<Business.Billet> models)
@@ -157,7 +169,7 @@ namespace AirTech.Server.DAO
 
         public static Models.Billet ConvertToDal(Shared.Billet model)
         {
-            return new Models.Billet
+            var b = new Models.Billet
             {
                 IdTravel = model.IdTravel,
                 Id = model.Id,
@@ -166,11 +178,16 @@ namespace AirTech.Server.DAO
                 Date = model.Date,
                 VoyagerId = model.VoyagerId
             };
+            if(model.Voyager != null)
+            {
+                b.Voyager = VoyagerDAO.ConvertToDal(model.Voyager);
+            }
+            return b;
         }
 
         public static Models.Billet ConvertToDal(Business.Billet model)
         {
-            return new Models.Billet
+            var b = new Models.Billet
             {
                 IdTravel = model.IdTravel,
                 Id = model.Id,
@@ -179,6 +196,11 @@ namespace AirTech.Server.DAO
                 Date = model.Date,
                 VoyagerId = model.VoyagerId
             };
+            //if (model.Voyager != null)
+            //{
+            //    b.Voyager = VoyagerDAO.ConvertToDal(model.Voyager);
+            //}
+            return b;
         }
 
         public static ICollection<Models.Billet> ConvertToDal(ICollection<Shared.Billet> models)
