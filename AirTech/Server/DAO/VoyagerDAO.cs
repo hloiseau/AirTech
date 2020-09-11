@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 
 namespace AirTech.Server.DAO
@@ -24,12 +25,12 @@ namespace AirTech.Server.DAO
         public async Task<IEnumerable<Shared.Voyager>> GetVoyagers()
         {
             List<Shared.Voyager> final = new List<Shared.Voyager>();
-            List<Voyager> voyagers = await  _airTechContext.Voyager.ToListAsync();
+            List<Voyager> voyagers = await _airTechContext.Voyager.ToListAsync();
             List<Models_IntechAirFrance.Voyager> voyagers2 = await _intechAirFranceService.GetVoyagersAsync();
 
             foreach (Voyager v in voyagers)
             {
-                final.Add(ConvertToEndPoint(ConvertToBusiness(v)));
+                final.Add(ConvertToEndPoint(ConvertToBusiness(v, false)));
             };
 
             foreach (var v in voyagers2)
@@ -44,9 +45,9 @@ namespace AirTech.Server.DAO
             List<Models.Voyager> voyagers = _airTechContext.Voyager.ToList();
             foreach (Models.Voyager v in voyagers)
             {
-                if(v.Id == IdToFind)
+                if (v.Id == IdToFind)
                 {
-                    return ConvertToEndPoint(ConvertToBusiness(v));
+                    return ConvertToEndPoint(ConvertToBusiness(v, true));
                 }
             }
             return null;
@@ -62,17 +63,17 @@ namespace AirTech.Server.DAO
             return ConvertToEndPoint(final);
         }
 
-        public static Business.Voyager ConvertToBusiness(Models.Voyager model)
+        public static Business.Voyager ConvertToBusiness(Models.Voyager model, bool fullObject)
         {
-
-                return new Business.Voyager
-                {
-                    Id = model.Id,
-                    LastName = model.LastName,
-                    FirstName = model.FirstName,
-                    Billet = BilletDAO.ConvertToBusiness(model.Billet)
-                };
-            
+            var voyager = new Business.Voyager
+            {
+                Id = model.Id,
+                LastName = model.LastName,
+                FirstName = model.FirstName,
+            };
+            if (fullObject)
+                voyager.Billet = BilletDAO.ConvertToBusiness(model.Billet);
+            return voyager;
         }
         public static Business.Voyager ConvertToBusiness(Models_IntechAirFrance.Voyager model)
         {
