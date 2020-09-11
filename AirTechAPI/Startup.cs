@@ -1,6 +1,6 @@
-using AirTechAPI.Server.DAO;
-using AirTechAPI.Server.Models;
-using AirTechAPI.Server.Services;
+using AirTech.Server.DAO;
+using AirTech.Server.Models;
+using AirTech.Server.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -27,7 +27,7 @@ namespace AirTechAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<AirTechAPIContext>(options =>
+            services.AddDbContext<AirTechContext>(options =>
                 options.UseSqlServer(Configuration["SqlCoString"]));
 
             ConfigureAdditionalServices(services);
