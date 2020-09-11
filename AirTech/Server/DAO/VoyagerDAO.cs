@@ -2,6 +2,7 @@
 using AirTech.Server.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Channels;
@@ -26,17 +27,23 @@ namespace AirTech.Server.DAO
         {
             List<Shared.Voyager> final = new List<Shared.Voyager>();
             List<Voyager> voyagers = await _airTechContext.Voyager.ToListAsync();
-            List<Models_IntechAirFrance.Voyager> voyagers2 = await _intechAirFranceService.GetVoyagersAsync();
 
             foreach (Voyager v in voyagers)
             {
-                final.Add(ConvertToEndPoint(ConvertToBusiness(v, false)));
+                final.Add(ConvertToEndPoint(ConvertToBusiness(v, false), false));
             };
-
-            foreach (var v in voyagers2)
+            try
             {
-                final.Add(ConvertToEndPoint(ConvertToBusiness(v)));
-            };
+                List<Models_IntechAirFrance.Voyager> voyagers2 = await _intechAirFranceService.GetVoyagersAsync();
+                foreach (Models_IntechAirFrance.Voyager v in voyagers2)
+                {
+                    final.Add(ConvertToEndPoint(ConvertToBusiness(v), false));
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e.ToString());
+            }
             return final;
         }
 
@@ -47,7 +54,7 @@ namespace AirTech.Server.DAO
             {
                 if (v.Id == IdToFind)
                 {
-                    return ConvertToEndPoint(ConvertToBusiness(v, true));
+                    return ConvertToEndPoint(ConvertToBusiness(v, true), true);
                 }
             }
             return null;
@@ -84,15 +91,17 @@ namespace AirTech.Server.DAO
             };
         }
 
-        public static Shared.Voyager ConvertToEndPoint(Business.Voyager model)
+        public static Shared.Voyager ConvertToEndPoint(Business.Voyager model, bool fullObject)
         {
-            return new Shared.Voyager
+            var voyager = new Shared.Voyager
             {
                 Id = model.Id,
                 LastName = model.LastName,
                 FirstName = model.FirstName,
-                Billet = BilletDAO.ConvertToEndPoint(model.Billet)
             };
+            if (fullObject)
+                voyager.Billet = BilletDAO.ConvertToEndPoint(model.Billet);
+            return voyager;
         }
         public static Shared.Voyager ConvertToEndPoint(Models.Voyager model)
         {

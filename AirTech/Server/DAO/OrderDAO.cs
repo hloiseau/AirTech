@@ -26,16 +26,21 @@ namespace AirTech.Server.DAO
         {
             List<Shared.Order> final = new List<Shared.Order>();
             List<Order> Orders = _AirTechContext.Order.Include(x => x.Cilent).Include(x => x.Billet).ToList();
-            List<Models_IntechAirFrance.Order> Orders2 = await _intechAirFranceService.GetOrdersAsync();
 
             foreach (Order o in Orders)
             {
                 final.Add(ConvertToEndPoint(ConvertToBusiness(o)));
             }
-            foreach (var o in Orders2)
+            try
             {
-                final.Add(ConvertToEndPoint(ConvertToBusiness(o)));
+                List<Models_IntechAirFrance.Order> Orders2 = await _intechAirFranceService.GetOrdersAsync();
+                foreach (Models_IntechAirFrance.Order o in Orders2)
+                {
+                    final.Add(ConvertToEndPoint(ConvertToBusiness(o)));
+                }
             }
+            catch { }
+
             return final;
         }
 

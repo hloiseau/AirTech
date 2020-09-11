@@ -26,17 +26,22 @@ namespace AirTech.Server.DAO
         public async Task<IEnumerable<Shared.Billet>> GetBillets()
         {
             List<Shared.Billet> final = new List<Shared.Billet>();
-            List<Models.Billet> Billets = await _AirTechContext.Billet.ToListAsync();
-            //List<Models_IntechAirFrance.Billet> Billets2 = await _intechAirFranceService.GetBilletsAsync();
+            List<Models.Billet> Billets = await _AirTechContext.Billet.Include(x=> x.Voyager).ToListAsync();
 
             foreach (Models.Billet b in Billets)
             {
                 final.Add(ConvertToEndPoint(ConvertToBusiness(b)));
             }
-            //foreach (var b in Billets2)
-            //{
-            //    final.Add(ConvertToEndPoint(ConvertToBusiness(b)));
-            //}
+            try
+            {
+                List<Models_IntechAirFrance.Billet> Billet2 = await _intechAirFranceService.GetBilletsAsync();
+                foreach (Models_IntechAirFrance.Billet b in Billet2)
+                {
+                    final.Add(ConvertToEndPoint(ConvertToBusiness(b)));
+                }
+            }
+            catch { }
+
             return final;
         }
 
@@ -116,7 +121,7 @@ namespace AirTech.Server.DAO
                 VoyagerId = model.VoyagerId,
             };
             if (model.Voyager != null)
-                bil.Voyager = VoyagerDAO.ConvertToEndPoint(model.Voyager);
+                bil.Voyager = VoyagerDAO.ConvertToEndPoint(model.Voyager, false);
             return bil;
 
         }
