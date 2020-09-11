@@ -22,7 +22,7 @@
                 <td>@travel.To</td>
                 <td>@travel.Price €</td>
                 <td>@travel.Stock</td>
-                <td><input type="number" @onchange="@(e=> AddBillet(e, travel))" /></td>
+                <td><input type="number" min="0" max="@travel.Stock" @onchange="@(e=> AddBillet(e, travel))" /></td>
             </tr>
         }
 
